@@ -1,0 +1,5 @@
+# Do not commit API keys to github
+config.py
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
