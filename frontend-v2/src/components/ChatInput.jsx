@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { aiResponse, setflag, userQuery } from "../../../redux/slices/chatbotState"
-import AI from "../../../controller/api-AI"
+import { aiResponse, setflag, userQuery } from "../redux/slices/chatbotState"
+import AI from "../controller/api-AI"
 
 const Input = () => {
     const dispatch = useDispatch()

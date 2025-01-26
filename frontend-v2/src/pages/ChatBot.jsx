@@ -1,5 +1,5 @@
-import Response from "../components/Response"
-import Input from "../components/Input"
+import Response from "../components/ChatResponse"
+import Input from "../components/ChatInput"
 import "./Chatbot.css"
 
 const ChatBot = () => {

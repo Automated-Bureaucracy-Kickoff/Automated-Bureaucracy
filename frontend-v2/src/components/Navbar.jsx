@@ -1,6 +1,4 @@
 // src/components/Navbar.jsx
-import React from "react";
-
 const Navbar = () => {
   return (
     <nav className="bg-blue-500 text-white">
