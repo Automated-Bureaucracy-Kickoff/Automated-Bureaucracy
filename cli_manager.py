@@ -1,5 +1,5 @@
 import argparse
-from Agent import Agent
+from backend.agents.Agent import Agent
 
 
 def create_agent(args):
