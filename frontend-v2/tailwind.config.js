@@ -1,8 +1,13 @@
-module.exports = {
-    content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+/** @type {import('tailwindcss').Config} */
+export default {
+    darkMode:"class",
+    content: [
+        './index.html',
+        './src/**/*.{js,jsx,ts,tsx}'
+      ],
     theme: {
-      extend: {},
+        extend: {},
     },
-    plugins: [require('daisyui')],
-  };
-  
+    plugins: [],
+}
+
