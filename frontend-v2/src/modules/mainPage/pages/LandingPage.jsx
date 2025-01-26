@@ -1,0 +1,26 @@
+import { Button } from "@mui/material";
+import Navbar from "../components/Navbar";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+function LandingPage() {
+
+
+    return (
+        <>   
+             MATERIAL UI IS WORKING
+            <Button variant="text">Text</Button>
+            <Button variant="contained">Contained</Button>
+            <Button variant="outlined">Outlined</Button>
+
+             <br/>
+            <div className="p-10 bg-blue-500 text-white text-center">
+                <h1 className="text-4xl font-bold">Tailwind CSS is Working!</h1>
+            </div>
+            <br/>
+            MATERIAL UI ICON IS WORKING
+            <ArrowBackIcon/>
+
+        </>
+    )
+}
+
+export default LandingPage
