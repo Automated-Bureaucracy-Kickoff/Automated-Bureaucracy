@@ -1,0 +1,52 @@
+# Framework and ASGI server
+fastapi==0.100.0
+uvicorn[standard]==0.23.0
+
+# LangChain and OpenAI APIs
+langchain==0.0.234
+openai==0.27.8
+
+# Tavily API (if custom, ensure proper installation path or version)
+tavily-api==1.0.0
+
+# MLflow for experiment tracking
+mlflow==2.5.0
+
+# Data processing and analysis
+pandas==2.0.3
+numpy==1.25.0
+
+# Visualization
+matplotlib==3.7.2
+
+# Task scheduling
+apscheduler==3.10.1
+
+# Compliance and security
+pyyaml==6.0.1
+
+# Text-to-speech and whisper (for audio processing)
+whisper==1.0
+elevenlabs==0.2.11
+assemblyai==0.13.0
+
+# Google Cloud SDK (if required for deployment and logging)
+google-cloud-logging==3.10.0
+google-cloud-storage==2.12.0
+
+# Other utilities
+requests==2.31.0
+python-decouple==3.8
+python-dotenv==1.0.0
+
+# Logging and error tracking
+loguru==0.7.0
+sentry-sdk==1.29.2
+
+# Vector memory (e.g., Pinecone or FAISS)
+pinecone-client==2.2.1
+faiss-cpu==1.7.4
+
+# Database support (e.g., PostgreSQL or SQLite)
+sqlalchemy==2.1.0
+psycopg2-binary==2.9.7
