@@ -21,9 +21,9 @@ const Input = () => {
     }
 
     return (
-        <div className="chat-container">
-            <input className="chat-input" placeholder="Type here..." ref={chatbot} type="text" />
-            <img onClick={sendChat} className="send-icon" src="/sendIcon.png" alt="Send" />
+        <div className="flex border-4 p-2 m-4 rounded-lg w-fit space-x-4">
+            <input className="" placeholder="Type here..." ref={chatbot} type="text" />
+            <img onClick={sendChat} className="p-2 border-2 rounded-full" src="/sendIcon.png" alt="Send" />
         </div>
 
     )
