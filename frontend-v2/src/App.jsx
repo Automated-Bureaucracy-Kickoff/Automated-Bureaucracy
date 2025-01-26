@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { store } from './redux/store/store.js'
 import ChatBot from './modules/Chatbot/pages/ChatBot.jsx'
-import LandingPage from './modules/mainPage/pages/LandingPage.jsx'
+import LandingPage from './modules/landingPage/pages/LandingPage.jsx'
 
 function App() {
 
