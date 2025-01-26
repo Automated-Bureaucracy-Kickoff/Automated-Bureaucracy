@@ -1,18 +1,15 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 from typing import Any
 
 app = FastAPI()
 
 class AgentSettings(BaseModel):
-    temperature: float
+    max_compute_min: int
     max_tokens: int
 
 class AgentPrompt(BaseModel):
     prompt: str
     response: Any
-    
-
 
 # Function to set agent settings
 def set_agent_settings(settings: AgentSettings):
