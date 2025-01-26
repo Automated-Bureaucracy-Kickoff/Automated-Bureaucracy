@@ -9,9 +9,10 @@ async function AI(data) {
 
   const result = await model.generateContent([prompt]);
   const response = result.response;
-   console.log(response, "sd",typeof response)
+  console.log(response, "sd",typeof response)
   const text = response.text();
   return text; // text is a json object so this function should always return json
 }
 
 export default AI;
+

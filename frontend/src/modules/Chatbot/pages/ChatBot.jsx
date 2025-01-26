@@ -7,7 +7,7 @@ const ChatBot = () => {
     return (
 
         <div className="chatBotPage">
-           <Response />
+        <Response />
             <Input />
         </div>
     )
