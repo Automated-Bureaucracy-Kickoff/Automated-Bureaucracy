@@ -68,6 +68,20 @@ def list_agents():
     return {"agents": list(agent_manager.list_agents().keys())}
 
 
+@app.post("/agents/stop/")
+def stop_agent(agent_name: str):
+    """
+    Stops a running agent by its name.
+    """
+    try:
+        agent_manager.stop_agent(agent_name)
+        return {"message": f"Agent '{agent_name}' stopped successfully"}
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"Agent '{agent_name}' not found.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post("/tasks/")
 def execute_task(request: TaskRequest):
     """
