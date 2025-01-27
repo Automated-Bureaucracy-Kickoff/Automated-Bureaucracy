@@ -1,6 +1,6 @@
-import Response from "../components/ChatResponse"
-import Input from "../components/ChatInput"
-import "./Chatbot.css"
+import Response from "./ChatResponse"
+import Input from "./ChatInput"
+import "../css/ChatBot.css"
 
 const ChatBot = () => {
 

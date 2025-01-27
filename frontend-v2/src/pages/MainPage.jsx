@@ -1,5 +1,5 @@
 import { ClassNames } from "@emotion/react"
-import ChatBot from "./ChatBot"
+import ChatBot from "../components/ChatBot"
 import { useEffect } from "react"
 
 
