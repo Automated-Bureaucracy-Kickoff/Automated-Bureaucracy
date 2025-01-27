@@ -5,4 +5,8 @@ export const store = configureStore({
   reducer: {
     chatbot:chatBotReducres
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })

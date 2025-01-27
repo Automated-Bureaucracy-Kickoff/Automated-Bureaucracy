@@ -5,6 +5,7 @@ import { store } from './redux/store/store.js'
 import ChatBot from './pages/ChatBot.jsx'
 import LandingPage from './pages/HomePage.jsx'
 import Navbar from './components/Navbar.jsx'
+import MainPage from './pages/MainPage.jsx'
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
                 <Navbar></Navbar>
                 <Routes>
                     <Route path='/' element={<> <LandingPage/> </>}/>
-                    <Route path='/mainPage' element={<> Lakshay </>} />
+                    <Route path='/mainPage' element={<> <MainPage/>  </>} />
                     <Route path='/testing' element={<> <ChatBot /> </>} />
                 </Routes>
             </div>

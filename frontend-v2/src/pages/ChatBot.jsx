@@ -6,9 +6,9 @@ const ChatBot = () => {
 
     return (
 
-        <div className="chatBotPage">
+        <div className="chatBotPage bg-black p-0 m-0 min-w-full overflow-hidden ">
         <Response />
-            <Input />
+        <Input />
         </div>
     )
 
