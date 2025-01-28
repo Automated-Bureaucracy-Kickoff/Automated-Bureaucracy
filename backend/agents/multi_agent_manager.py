@@ -118,7 +118,8 @@ class MultiAgentManager:
         """
         logging.info("Starting collective intelligence simulation with user prompt: '%s'.", user_prompt)
         logs = []
-        messages_count = 0
+        consecutive_failures = 0  # Track consecutive failures
+        last_prompt = user_prompt  # Initial prompt
         agents = list(self.list_agents().values())
 
         if not agents:
@@ -134,23 +135,44 @@ class MultiAgentManager:
             logging.error("Failed to set up MLflow experiment '%s': %s. Continuing without MLflow.", experiment_name, e)
             experiment_id = None
 
-        # Run the simulation
         try:
             with mlflow.start_run(run_name="collective_intelligence_simulation", experiment_id=experiment_id):
-                while messages_count < message_limit:
-                    for agent in agents:
-                        if messages_count >= message_limit:
-                            break
-                        logging.debug("Agent '%s' executing task.", agent.name)
-                        try:
-                            message = agent.execute_task(user_prompt)
-                            logs.append({"agent": agent.name, "message": message})
-                            messages_count += 1
-                            logging.debug("Agent '%s' completed task: '%s'.", agent.name, message)
-                        except Exception as e:
-                            logging.error("Error during task execution for agent '%s': %s", agent.name, e)
-                logging.info("Simulation completed successfully.")
+                for i in range(message_limit):
+                    if consecutive_failures >= 3:
+                        logging.error("Three consecutive task failures. Exiting simulation gracefully.")
+                        break
+
+                    agent = agents[i % len(agents)]  # Rotate through agents
+                    logging.debug("Agent '%s' executing task.", agent.name)
+
+                    try:
+                        response = agent.execute_task(last_prompt)
+                        logs.append({"agent": agent.name, "prompt": last_prompt, "response": response})
+                        logging.info("Agent '%s' response: '%s'.", agent.name, response)
+                        last_prompt = response  # Use response as the next prompt
+                        consecutive_failures = 0  # Reset failure counter on success
+                    except Exception as e:
+                        consecutive_failures += 1
+                        logging.error(
+                            "Error during task execution for agent '%s': %s (Failure #%d)",
+                            agent.name,
+                            e,
+                            consecutive_failures,
+                        )
+
+                logging.info("Simulation completed. Total messages exchanged: %d", len(logs))
+
         except Exception as e:
             logging.error("Error during simulation: %s", e)
             raise
+
+        # Debug analysis summary
+        analysis = {
+            "total_messages_exchanged": len(logs),
+            "successful_exchanges": [log for log in logs if "response" in log],
+            "failed_exchanges": consecutive_failures,
+            "agents_involved": [agent.name for agent in agents],
+        }
+        logging.debug("Simulation analysis: %s", analysis)
+
         return logs
