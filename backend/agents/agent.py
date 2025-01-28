@@ -1,4 +1,8 @@
-# agent.py (Refactored to load .env automatically)
+# agent.py (Refactored for o1-mini)
+#
+# Because o1-mini does not support the "system" role,
+# we rename the system message role to "assistant".
+
 import logging
 import os
 from dotenv import load_dotenv
@@ -37,7 +41,7 @@ class Agent:
         self.system_prompt = system_prompt
         self.state_manager = AgentStateManager()
 
-        # If no TAVILY_API_KEY is provided, we can fallback to environment
+        # If no TAVILY_API_KEY is provided, fallback to environment
         if not tavily_api_key:
             tavily_api_key = os.environ.get("TAVILY_API_KEY", "")
         self.tavily_client = TavilyClient(api_key=tavily_api_key)
@@ -46,11 +50,11 @@ class Agent:
         # Load environment variables from .env
         load_dotenv()
 
-        # If no openai_api_key is passed, fallback to the environment variable
+        # If no openai_api_key is passed, fallback to environment variable
         if not openai_api_key:
             openai_api_key = os.environ.get("OPENAI_API_KEY", "")
 
-        # Configure the API key at the module level (for quick usage)
+        # Configure the API key (module-level usage)
         openai.api_key = openai_api_key
 
         if self.message_bus:
@@ -78,17 +82,16 @@ class Agent:
     def _o1_mini_llm(self, prompt: str) -> str:
         """
         Use the new OpenAI library call for chat completions with the o1-mini model.
+        o1-mini does not support the "system" role, so we rename it to "assistant".
         """
         logging.debug(f"Preparing o1-mini LLM request for agent: {self.name}")
         try:
             response = openai.chat.completions.create(
                 model="o1-mini",
                 messages=[
-                    {"role": "system", "content": self.system_prompt},
+                    {"role": "assistant", "content": self.system_prompt},
                     {"role": "user", "content": prompt},
                 ],
-                temperature=0.7,
-                max_tokens=150,
                 n=1,
                 stop=["\nObservation:"],
             )
