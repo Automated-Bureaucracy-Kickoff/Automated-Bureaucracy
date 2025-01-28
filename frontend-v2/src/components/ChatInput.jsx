@@ -7,6 +7,7 @@ import FileUpload from "./FileUpload";
 const Input = () => {
     const dispatch = useDispatch()
     let flag = useSelector((state) => state.chatbot.flag)
+    let settings = useSelector((state) => state.toggle.setting)
     const chatbot = useRef()
     const sendChat = async () => {
         if (flag) {
@@ -16,20 +17,20 @@ const Input = () => {
             dispatch(userQuery({ message:[message,new Date().toLocaleString([],{ hour: '2-digit', minute: '2-digit' })] }))
             dispatch(aiResponse({ message: ["Thinking......",new Date().toLocaleString([],{ hour: '2-digit', minute: '2-digit' })] }))
             try{
-                const data = await mimickApi(message)
-                dispatch(aiResponse({ message: JSON.parse(data).message }))
+                const data = await mimickApi({message,settings})
+                dispatch(aiResponse({ message: JSON.parse(data).message ,...settings}))
             }catch(err){
-                dispatch(aiResponse({ message: err }))
+                dispatch(aiResponse({ message: JSON.parse(err).message }))
             }
             dispatch(setflag({flag:true}))
         }
     }
 
     return (
-        <div className="chat-container min-w-80" >
-            <textarea  onKeyDown={(event)=>{if(event.key=="Enter"  && !event.shiftKey)sendChat()}} className="chat-input dark:bg-zinc-700 min-w-48 " placeholder="Type here..." ref={chatbot} type="text" />
+        <div className="chat-container min-w-80 relative" >
+            <textarea  onKeyDown={(event)=>{if(event.key=="Enter"  && !event.shiftKey)sendChat()}} className="chat-input min-w-48  text-left pt-6 bg-gray-800 p-2 rounded border border-gray-700" placeholder="Type here..." ref={chatbot} type="text" />
              <FileUpload/>
-             <SendIcon className=" relative -left-6" onClick={sendChat}  />
+             <SendIcon className=" relative -left-10 " onClick={sendChat}  />
              
         </div>
 

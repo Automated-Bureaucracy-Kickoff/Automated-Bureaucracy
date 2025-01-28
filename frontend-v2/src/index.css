@@ -10,3 +10,27 @@
     overflow-x: hidden;
     scrollbar-width: none;
 }
+
+
+
+::-webkit-input-placeholder {
+    padding: 10px;
+    text-align: left;
+}
+:-moz-placeholder {
+    padding: 10px;
+    text-align: left;
+}
+::-moz-placeholder {
+    padding: 10px;
+    text-align: left;
+}
+:-ms-input-placeholder {
+    padding: 10px;
+    text-align: left;
+}
+
+textarea {
+    resize: none;
+    box-sizing: border-box;
+}

@@ -4,9 +4,9 @@ function AiIcon() {
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="74.634 123.585 98.962 106.718" 
                 width="98.962" 
-                height="40.718"
+                height="65.718"
                 style={{ fill: "-moz-initial", clipRule: "evenodd", fillRule: "evenodd", }}
-                className="absolute -left-8  z-10 p-1 m-2 right-0 -bottom-2"
+                className="absolute -left-6  z-10 p-1 m-2 right-0 -bottom-2"
             >
                 <path 
                     className="mlc_svg__st0" 

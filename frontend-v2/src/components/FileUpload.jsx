@@ -27,7 +27,8 @@ export default function FileUpload() {
        color='whitesmoke'    
       tabIndex={-1}
       startIcon={<AddIcon />}
-      className='-left-2'
+      className='absolute -left-8'
+      
     >
       <VisuallyHiddenInput
         type="file"

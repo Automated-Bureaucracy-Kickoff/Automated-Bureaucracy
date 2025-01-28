@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   messages:[],
+  saved:[],
   files:[],
   flag:true 
 }
 
+//
 export const chatBotSlice = createSlice({
   name: 'chatBot',
   initialState,
@@ -27,10 +29,21 @@ export const chatBotSlice = createSlice({
     },
     setflag:(state,action)=>{
       state.flag=action.payload.flag
+    },
+    createHistory:(state)=>{
+      state.saved.push({
+        message:state.messages,
+        files:state.files
+      })
+      state.messages=[]
+      state.files=[]
+    },
+    createTitle:(state,action)=>{
+
     }
   },
 })
 
-export const { userQuery, aiResponse,setflag,appendFiles } = chatBotSlice.actions
+export const { userQuery, aiResponse,setflag,appendFiles,createHistory } = chatBotSlice.actions
 
 export default chatBotSlice.reducer
