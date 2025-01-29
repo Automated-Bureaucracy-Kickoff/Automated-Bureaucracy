@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { appendHistory } from './previousChat'
 
 const initialState = {
   messages:[],
-  saved:[],
   files:[],
+  title:"Default Title",
   flag:true 
 }
 
@@ -31,19 +32,25 @@ export const chatBotSlice = createSlice({
       state.flag=action.payload.flag
     },
     createHistory:(state)=>{
-      state.saved.push({
-        message:state.messages,
-        files:state.files
-      })
       state.messages=[]
       state.files=[]
+      state.title=""
+      
     },
     createTitle:(state,action)=>{
-
+      state.title=action.payload
+    },
+    accessHistory:(state,action)=>{
+      console.log(action.payload)
+      
+      const {messages,files,title}=action.payload
+      state.messages=messages
+      state.files=files
+      state.title=title
     }
   },
 })
 
-export const { userQuery, aiResponse,setflag,appendFiles,createHistory } = chatBotSlice.actions
+export const { userQuery, aiResponse,setflag,appendFiles,createHistory,createTitle,accessHistory } = chatBotSlice.actions
 
 export default chatBotSlice.reducer

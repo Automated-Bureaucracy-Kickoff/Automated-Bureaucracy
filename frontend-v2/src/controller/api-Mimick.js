@@ -5,12 +5,12 @@ function mimickApi(message){
    console.log("USER MESSAGE",message)
     return new Promise((res,rej)=>{
          setTimeout(()=>{
-            if(count==0){
+            if(count==1){
                 res(JSON.stringify({message:`${message.message}  THESE are the settings ${message.settings} i am mimicking an api and here is the setting `}))
-                count+=1
+                count==0
               }else{
-                rej(JSON.stringify({message:`  Hmm something went wrong  `}))
-                count=0
+                rej(JSON.stringify({message:`Hmm something went wrong❗ `}))
+                count+=1
               }
          },2000)
        
