@@ -1,182 +1,184 @@
+# agent.py (Refactored for o1-mini)
+#
+# Because o1-mini does not support the "system" role,
+# we rename the system message role to "assistant".
+
+import logging
+import os
+from dotenv import load_dotenv
+import mlflow
 import openai
+
 from langchain.chains import SequentialChain
 from langchain.prompts import PromptTemplate
 from langchain.agents import Tool, initialize_agent
-from langchain.agents.agent_toolkits import create_tools_agent
-from langchain.memory import ConversationBufferMemory
-from tavily import TavilyAPI
-import mlflow
+
+from tavily import TavilyClient
+from .agent_state_manager import AgentStateManager
 
 
 class Agent:
     """
-    Represents an intelligent agent with OpenAI, LangChain, Tavily integration, and model tracking via MLflow.
+    Represents an intelligent agent with OpenAI o1-mini integration, Tavily, and MLflow tracking.
     """
 
-    def __init__(self, name, system_prompt, openai_api_key, tavily_api_key, mlflow_uri):
+    def __init__(
+        self,
+        name: str,
+        system_prompt: str,
+        openai_api_key: str = None,
+        tavily_api_key: str = None,
+        mlflow_uri: str = None,
+        message_bus=None
+    ):
         """
-        Initializes the agent.
+        Initialize the agent with required configurations and optional MessageBus integration.
 
-        Args:
-            name (str): Name of the agent.
-            system_prompt (str): System prompt defining the agent's behavior.
-            openai_api_key (str): OpenAI API key.
-            tavily_api_key (str): Tavily API key for internet access.
-            mlflow_uri (str): URI for the MLflow server.
+        If openai_api_key is not provided, the code will load it from .env using python-dotenv.
         """
+        logging.debug(f"Initializing agent: {name}")
         self.name = name
         self.system_prompt = system_prompt
-        self.memory = ConversationBufferMemory(memory_key="history")
-        self.openai_api_key = openai_api_key
-        self.tavily = TavilyAPI(api_key=tavily_api_key)
+        self.state_manager = AgentStateManager()
 
-        # Configure MLflow
-        mlflow.set_tracking_uri(mlflow_uri)
-        mlflow.set_experiment("Agent Management")
+        # If no TAVILY_API_KEY is provided, fallback to environment
+        if not tavily_api_key:
+            tavily_api_key = os.environ.get("TAVILY_API_KEY", "")
+        self.tavily_client = TavilyClient(api_key=tavily_api_key)
+        self.message_bus = message_bus
 
-        # Initialize OpenAI API
+        # Load environment variables from .env
+        load_dotenv()
+
+        # If no openai_api_key is passed, fallback to environment variable
+        if not openai_api_key:
+            openai_api_key = os.environ.get("OPENAI_API_KEY", "")
+
+        # Configure the API key (module-level usage)
         openai.api_key = openai_api_key
 
-        # Define tools for the agent
-        self.tools = self.initialize_tools()
+        if self.message_bus:
+            self.message_bus.register(self.name, self._process_message)
 
-        # Define LangChain agent with tools and memory
-        self.langchain_agent = initialize_agent(
-            tools=self.tools,
-            llm=self.openai_llm(),
-            memory=self.memory,
-            verbose=True,
-        )
+        # MLflow configuration
+        try:
+            logging.debug(f"Configuring MLflow tracking for agent: {name}")
+            if mlflow_uri is None:
+                mlflow_uri = os.environ.get("MLFLOW_URI", "http://localhost:5000")
+            mlflow.set_tracking_uri(mlflow_uri)
+            mlflow.set_experiment("Agent Management")
+        except Exception as e:
+            logging.error(f"MLflow configuration failed for agent {name}: {e}")
+            self.mlflow_enabled = False
+        else:
+            self.mlflow_enabled = True
 
-    def openai_llm(self):
+        logging.debug(f"Initializing tools for agent: {name}")
+        self.tools = self._initialize_tools()
+
+        logging.info(f"Agent '{name}' initialized successfully.")
+        self.state_manager.set_state(self.name, "idle")
+
+    def _o1_mini_llm(self, prompt: str) -> str:
         """
-        Creates an OpenAI-based language model for the agent.
-
-        Returns:
-            OpenAI model instance.
+        Use the new OpenAI library call for chat completions with the o1-mini model.
+        o1-mini does not support the "system" role, so we rename it to "assistant".
         """
-        from langchain.llms import OpenAI
-        return OpenAI(temperature=0.7, model="gpt-4")
+        logging.debug(f"Preparing o1-mini LLM request for agent: {self.name}")
+        try:
+            response = openai.chat.completions.create(
+                model="o1-mini",
+                messages=[
+                    {"role": "assistant", "content": self.system_prompt},
+                    {"role": "user", "content": prompt},
+                ],
+                n=1,
+                stop=["\nObservation:"],
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            logging.error(f"Failed to call o1-mini model for agent '{self.name}': {e}")
+            raise
 
-    def initialize_tools(self):
+    def _initialize_tools(self):
         """
-        Sets up tools available to the agent.
-
-        Returns:
-            list of Tool: Tools for reflection and internet access.
+        Sets up the tools available to the agent.
         """
+        logging.debug(f"Defining tools for agent: {self.name}")
         return [
-            Tool(
-                name="Notepad",
-                func=self.reflect,
-                description="Use this tool to store thoughts and perform self-prompting reflection.",
-            ),
-            Tool(
-                name="Internet",
-                func=self.search_internet,
-                description="Use this tool to search the web for real-time information.",
-            ),
+            Tool(name="Notepad", func=self.reflect, description="Tool for reflection."),
+            Tool(name="Internet", func=self.search_internet, description="Tool for internet search."),
         ]
 
-    def reflect(self, input_text):
+    def reflect(self, input_text: str) -> str:
         """
-        Simulates a notepad for reflection and self-prompting.
-
-        Args:
-            input_text (str): Input thought or reflection to process.
-
-        Returns:
-            str: Reflection response.
+        A tool for reflecting on input text and proposing next steps.
         """
-        self.memory.add_memory(input_text)
-        reflection_prompt = PromptTemplate(
-            input_variables=["thoughts"],
-            template="""
-                Reflect on the following thoughts:
-                {thoughts}
-                Based on this reflection, propose actionable next steps.
-            """,
-        )
-        chain = SequentialChain(chains=[], prompt=reflection_prompt)
-        return chain.run({"thoughts": input_text})
-
-    def search_internet(self, query):
-        """
-        Uses Tavily API for web search.
-
-        Args:
-            query (str): Query string to search the internet.
-
-        Returns:
-            str: Search result summary.
-        """
+        logging.debug(f"Agent '{self.name}' is reflecting on input.")
+        self.state_manager.set_state(self.name, "reflecting")
         try:
-            response = self.tavily.search(query)
-            return response.get("summary", "No summary available.")
+            prompt = f"Reflect on the following thoughts: {input_text}. Propose next steps."
+            result = self._o1_mini_llm(prompt)
+            logging.debug(f"Reflection result for agent '{self.name}': {result}")
+            return result
         except Exception as e:
-            return f"Error accessing the internet: {e}"
+            logging.error(f"Reflection failed for agent '{self.name}': {e}")
+            return f"Error during reflection: {e}"
+        finally:
+            self.state_manager.set_state(self.name, "idle")
 
-    def execute_task(self, task_prompt):
+    def search_internet(self, query: str) -> str:
         """
-        Executes a task using LangChain workflows.
-
-        Args:
-            task_prompt (str): Prompt defining the task.
-
-        Returns:
-            str: Task output from the LangChain agent.
+        A tool for searching the internet.
         """
-        return self.langchain_agent.run(input=task_prompt)
+        logging.debug(f"Agent '{self.name}' is performing an internet search for query: {query}")
+        self.state_manager.set_state(self.name, "searching")
+        try:
+            response = self.tavily_client.search(query)
+            results = response.get("results", [])
+            if results:
+                formatted_results = "\n".join(f"{res['title']}: {res['content']}" for res in results[:3])
+                logging.debug(f"Search results for '{query}': {formatted_results}")
+                return formatted_results
+            logging.info(f"No results found for query '{query}'.")
+            return "No results found."
+        except Exception as e:
+            logging.error(f"Internet search failed for agent '{self.name}': {e}")
+            return f"Error during search: {e}"
+        finally:
+            self.state_manager.set_state(self.name, "idle")
 
-    def log_model(self, model_name, params, metrics):
+    def execute_task(self, prompt: str) -> str:
         """
-        Logs model metadata to MLflow.
-
-        Args:
-            model_name (str): Name of the model.
-            params (dict): Model parameters.
-            metrics (dict): Model performance metrics.
+        Executes a task based on the provided prompt.
         """
-        with mlflow.start_run():
-            mlflow.log_params(params)
-            mlflow.log_metrics(metrics)
-            mlflow.set_tag("model_name", model_name)
+        logging.debug(f"Agent '{self.name}' received task with prompt: {prompt}")
+        try:
+            response = self._o1_mini_llm(prompt)
+            logging.info(f"Agent '{self.name}' successfully completed task. Response: {response}")
+            return response
+        except Exception as e:
+            logging.error(f"Task execution failed for agent '{self.name}': {e}")
+            raise
 
-    def get_memory(self):
+    def send_message(self, message: str) -> None:
         """
-        Retrieves the agent's memory log.
-
-        Returns:
-            list: List of memory entries.
+        Publishes a message to the MessageBus.
         """
-        return self.memory.load_memory()
+        if self.message_bus:
+            logging.debug(f"Agent '{self.name}' is sending message: {message}")
+            self.message_bus.publish(signal="message", sender=self.name, message=message)
+        else:
+            logging.warning(f"Agent '{self.name}' attempted to send a message without a MessageBus.")
 
-
-# Example Usage
-if __name__ == "__main__":
-    agent = Agent(
-        name="Agent1",
-        system_prompt="You are an assistant specializing in summarization and analysis.",
-        openai_api_key="your_openai_api_key",
-        tavily_api_key="your_tavily_api_key",
-        mlflow_uri="http://localhost:5000",
-    )
-
-    # Example Task Execution
-    result = agent.execute_task("Summarize the latest trends in AI research.")
-    print(f"Task Result: {result}")
-
-    # Internet Search Example
-    search_result = agent.search_internet("Latest advancements in quantum computing.")
-    print(f"Internet Search Result: {search_result}")
-
-    # Reflection Example
-    reflection_result = agent.reflect("How can we optimize AI for creative tasks?")
-    print(f"Reflection Result: {reflection_result}")
-
-    # Model Logging Example
-    agent.log_model(
-        model_name="AI Summarizer",
-        params={"temperature": 0.7, "model": "gpt-4"},
-        metrics={"accuracy": 0.95, "f1_score": 0.92},
-    )
+    def _process_message(self, signal: str, message: str, sender: str) -> None:
+        """
+        Processes a message received via the MessageBus.
+        """
+        if signal == "message":
+            logging.debug(f"Agent '{self.name}' received message from '{sender}': {message}")
+            try:
+                response = self.execute_task(message)
+                self.send_message(response)
+            except Exception as e:
+                logging.error(f"Error processing message for agent '{self.name}': {e}")

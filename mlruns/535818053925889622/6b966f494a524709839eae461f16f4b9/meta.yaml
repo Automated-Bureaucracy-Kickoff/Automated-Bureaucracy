@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/blde8334/Desktop/Research/automatedbureaucracy/Git%20Repository/AB/mlruns/535818053925889622/6b966f494a524709839eae461f16f4b9/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '535818053925889622'
+lifecycle_stage: active
+run_id: 6b966f494a524709839eae461f16f4b9
+run_name: four_agent_minimal_simulation
+run_uuid: 6b966f494a524709839eae461f16f4b9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1738108928531
+status: 1
+tags: []
+user_id: blde8334

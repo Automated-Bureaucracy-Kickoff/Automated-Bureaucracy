@@ -1,10 +1,10 @@
-from api_integration.default_api import log_workflow, get_workflow_summary, detect_workflow_bottlenecks
-from typing import Dict, Any, List
+from backend.api_integration.default_api import log_workflow, get_workflow_summary, detect_workflow_bottlenecks
+from typing import Dict, Any
 
 
 class WorkflowHelper:
     """
-    Utility class for managing workflows in the CLI.
+    Utility class for managing workflows in the CLI, including running default simulations.
     """
 
     @staticmethod
@@ -106,6 +106,14 @@ class WorkflowHelper:
         # Add additional validation rules as needed
         return True
 
+    @staticmethod
+    def run_default_collective_intelligence():
+        """
+        Runs the default collective intelligence simulation.
+        """
+        from backend.cli.commands.agents.simulate_collective_intelligence import simulate_collective_intelligence
+        simulate_collective_intelligence()
+
 
 # Example Usage
 if __name__ == "__main__":
@@ -129,3 +137,6 @@ if __name__ == "__main__":
     # Detect bottlenecks
     bottlenecks_result = WorkflowHelper.detect_bottlenecks(workflow_id, threshold_minutes=15)
     print(bottlenecks_result)
+
+    # Run default collective intelligence simulation
+    WorkflowHelper.run_default_collective_intelligence()
