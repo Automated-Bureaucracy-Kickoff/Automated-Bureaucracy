@@ -37,7 +37,7 @@ def simulate_collective_intelligence():
             },
         ],
         "user_prompt": (
-            "Simulate the emergence of a new form of language among simulated agents optimized for a certain purpose."
+            "Simulate a business application for a multi agent collective intelligence simulation"
         ),
     }
 
