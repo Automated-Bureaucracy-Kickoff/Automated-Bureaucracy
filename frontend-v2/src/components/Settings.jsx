@@ -37,46 +37,89 @@ export default function SettingsComponent() {
 
   return (
     <>
-      <h2 className="text-3xl font-semibold mb-1 p-6">Settings</h2>
-      <div className="space-y-4 p-6 mb-14 relative">
+      <h2 className="text-3xl font-semibold mb-0 p-6 text-[var(--color-primary-text)]">Settings</h2>
+      <div className="space-y-3 p-6 -mt-9 mb-14 relative">
         <div>
-          <label className="block font-medium">No of agents</label>
-          <input type="number" value={numAgents} onChange={handleNumAgentsChange} className="w-full bg-gray-800 p-2 rounded border border-gray-700" min="1" />
+          <label className="block font-medium text-[var(--color-primary-text)]">No of agents</label>
+          <input 
+            type="number" 
+            value={numAgents} 
+            onChange={handleNumAgentsChange} 
+            className="w-full bg-[var(--color-secondary-bg)] p-2 rounded border border-[var(--color-secondary-border)]" 
+            min="1" 
+          />
         </div>
         {prompts.map((prompt, index) => (
           <div key={index}>
-            <label className="block font-medium">System prompt for Agent {index + 1}</label>
-            <textarea value={prompt} onChange={(e) => handlePromptChange(index, e.target.value)} className="w-full bg-gray-800 p-2 rounded border border-gray-700"></textarea>
+            <label className="block font-medium text-[var(--color-primary-text)]">System prompt for Agent {index + 1}</label>
+            <textarea 
+              value={prompt} 
+              onChange={(e) => handlePromptChange(index, e.target.value)} 
+              className="w-full bg-[var(--color-secondary-bg)] p-2 rounded border border-[var(--color-secondary-border)]"
+            />
           </div>
         ))}
         <div>
-          <label className="block font-medium">Durations / Cycle</label>
-          <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full bg-gray-800 p-2 rounded border border-gray-700" />
+          <label className="block font-medium text-[var(--color-primary-text)]">Durations / Cycle</label>
+          <input 
+            type="text" 
+            value={duration} 
+            onChange={(e) => setDuration(e.target.value)} 
+            className="w-full bg-[var(--color-secondary-bg)] p-2 rounded border border-[var(--color-secondary-border)]" 
+          />
         </div>
         <div>
-          <label className="block font-medium">Model Dropdown</label>
-          <select value={model} onChange={(e) => setModel(e.target.value)} className="w-full bg-gray-800 p-2 rounded border border-gray-700">
+          <label className="block font-medium text-[var(--color-primary-text)]">Model Dropdown</label>
+          <select 
+            value={model} 
+            onChange={(e) => setModel(e.target.value)} 
+            className="w-full bg-[var(--color-secondary-bg)] p-2 rounded border border-[var(--color-secondary-border)]"
+          >
             <option>Model 1</option>
             <option>Model 2</option>
           </select>
         </div>
         <div>
-          <label className="block font-medium">Temperature</label>
-          <input type="range" min="0" max="2" step="0.1" value={temperature} onChange={(e) => setTemperature(Number(e.target.value))} className="w-full" />
+          <label className="block font-medium text-[var(--color-primary-text)]">Temperature</label>
+          <input 
+            type="range" 
+            min="0" 
+            max="2" 
+            step="0.1" 
+            value={temperature} 
+            onChange={(e) => setTemperature(Number(e.target.value))} 
+            className="w-full" 
+          />
         </div>
         <div>
-          <label className="block font-medium">Tools Checkboxes</label>
+          <label className="block font-medium text-[var(--color-primary-text)]">Tools Checkboxes</label>
           <div className="flex flex-col">
-            <label className="inline-flex items-center">
-              <input type="checkbox" checked={tools.webSearch} onChange={(e) => setTools({ ...tools, webSearch: e.target.checked })} className="mr-2" /> Web Search
+            <label className="inline-flex items-center text-[var(--color-primary-text)]">
+              <input 
+                type="checkbox" 
+                checked={tools.webSearch} 
+                onChange={(e) => setTools({ ...tools, webSearch: e.target.checked })} 
+                className="mr-2" 
+              /> Web Search
             </label>
-            <label className="inline-flex items-center">
-              <input type="checkbox" checked={tools.notepad} onChange={(e) => setTools({ ...tools, notepad: e.target.checked })} className="mr-2" /> Internal Notepad
+            <label className="inline-flex items-center text-[var(--color-primary-text)]">
+              <input 
+                type="checkbox" 
+                checked={tools.notepad} 
+                onChange={(e) => setTools({ ...tools, notepad: e.target.checked })} 
+                className="mr-2" 
+              /> Internal Notepad
             </label>
           </div>
         </div>
-        <button onClick={handleSave} className="mt-6  text-2xl absolute right-0 bottom-1 text-white font-bold py-2 px-4 rounded animate-pulse">Save</button>
+        <button 
+          onClick={handleSave} 
+          className="mt-6 text-2xl absolute right-0 bottom-1 text-[var(--color-button-text)] font-bold py-2 px-4 rounded bg-[var(--color-button-bg)] hover:bg-[var(--color-button-hover-bg)] animate-pulse"
+        >
+          Save
+        </button>
       </div>
-      </>
+    </>
   );
+  
 }

@@ -26,7 +26,7 @@ export default function FileUpload() {
       role={undefined}
        color='whitesmoke'    
       tabIndex={-1}
-      startIcon={<AddIcon />}
+      startIcon={<AddIcon className='text-black' />}
       className='absolute -left-8'
       
     >

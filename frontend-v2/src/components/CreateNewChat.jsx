@@ -13,9 +13,23 @@ function CreateNewChat() {
         dispatch(appendHistory({ messages, files, title }))
     }
     return (
-        <div style={{ marginTop: "10px", padding: "2px" }}>
-            <Button onClick={clearChat} style={{ position: "absolute", top: "85px", color: "whitesmoke", textTransform: "capitalize", left: "17vh" }}>Create new Chat <AddIcon className="animate-pulse" /> </Button>
-            <SettingsIcon onClick={() => dispatch(toggleSetting())} className="hover:animate-spin" style={{ position: "absolute", top: "90px", left: "12px" }} />
+        <div className="absolute top-[80px] flex justify-evenly gap-16 " >
+            <SettingsIcon className="m-2" onClick={() => dispatch(toggleSetting())} />
+            <button
+                onClick={clearChat}
+                className=" capitalize 
+                            font-bold     
+                            text-[var(--color-primary-text)] 
+                            dark:text-[var(--color-primary-text)] 
+                            bg-[var(--color-primary-bg)] 
+                            dark:bg-[var(--color-primary-bg)] 
+                            hover:bg-[var(--color-secondary-bg)] 
+                            dark:hover:bg-[var(--color-secondary-bg)]"
+            >
+                Create New Chat
+            </button>
+
+
         </div>
     )
 }
