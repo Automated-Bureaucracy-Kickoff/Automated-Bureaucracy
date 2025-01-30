@@ -41,21 +41,21 @@ export default function SettingsComponent() {
       <div className="space-y-4 p-6 mb-14 relative">
         <div>
           <label className="block font-medium">No of agents</label>
-          <input type="number" value={numAgents} onChange={handleNumAgentsChange} className="w-full bg-gray-800 p-2 rounded border border-gray-700" min="1" />
+          <input type="number" value={numAgents} onChange={handleNumAgentsChange} className="w-full bg-secondary-bg-light dark:bg-secondary-bg-dark p-2 rounded border border-tertiary-bg-light dark:border-bg-tertiary-bg-dark" min="1" />
         </div>
         {prompts.map((prompt, index) => (
           <div key={index}>
             <label className="block font-medium">System prompt for Agent {index + 1}</label>
-            <textarea value={prompt} onChange={(e) => handlePromptChange(index, e.target.value)} className="w-full bg-gray-800 p-2 rounded border border-gray-700"></textarea>
+            <textarea value={prompt} onChange={(e) => handlePromptChange(index, e.target.value)} className="w-full bg-secondary-bg-light dark:bg-secondary-bg-dark p-2 rounded border border-tertiary-bg-light dark:border-bg-tertiary-bg-dark"></textarea>
           </div>
         ))}
         <div>
           <label className="block font-medium">Durations / Cycle</label>
-          <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full bg-gray-800 p-2 rounded border border-gray-700" />
+          <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full bg-secondary-bg-light dark:bg-secondary-bg-dark p-2 rounded border border-tertiary-bg-light dark:border-bg-tertiary-bg-dark" />
         </div>
         <div>
           <label className="block font-medium">Model Dropdown</label>
-          <select value={model} onChange={(e) => setModel(e.target.value)} className="w-full bg-gray-800 p-2 rounded border border-gray-700">
+          <select value={model} onChange={(e) => setModel(e.target.value)} className="w-full bg-secondary-bg-light dark:bg-secondary-bg-dark p-2 rounded border border-tertiary-bg-light dark:border-bg-tertiary-bg-dark">
             <option>Model 1</option>
             <option>Model 2</option>
           </select>
@@ -75,7 +75,7 @@ export default function SettingsComponent() {
             </label>
           </div>
         </div>
-        <button onClick={handleSave} className="mt-6  text-2xl absolute right-0 bottom-1 text-white font-bold py-2 px-4 rounded animate-pulse">Save</button>
+        <button onClick={handleSave} className="mt-6  text-2xl absolute right-0 bottom-1 text-primary-text-light dark:primary-text-dark font-bold py-2 px-4 rounded animate-pulse">Save</button>
       </div>
       </>
   );

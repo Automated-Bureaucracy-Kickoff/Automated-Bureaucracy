@@ -8,8 +8,8 @@ const MainPage = ()=>{
     const settingToggle = useSelector((state)=>state.toggle.settingsDisplay)
     return(
         <>
-         <div style={{width:"80vw",position:"relative",height:"95vh",left:"20%",}} className="bg-black " >
-         {settingToggle?<Settings/>:<ChatBot/>}
+         <div className="bg-tertiary-bg-light dark:bg-tertiary-bg-dark" >
+            {settingToggle?<Settings/>:<ChatBot/>}
          </div>  
         <HistorySection/>
         </>

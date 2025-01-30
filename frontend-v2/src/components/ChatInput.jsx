@@ -28,7 +28,7 @@ const Input = () => {
 
     return (
         <div className="chat-container min-w-80 relative" >
-            <textarea  onKeyDown={(event)=>{if(event.key=="Enter"  && !event.shiftKey)sendChat()}} className="chat-input min-w-48  text-left pt-6 bg-gray-800 p-2 rounded border border-gray-700" placeholder="Type here..." ref={chatbot} type="text" />
+            <textarea  onKeyDown={(event)=>{if(event.key=="Enter"  && !event.shiftKey)sendChat()}} className="chat-input min-w-48  text-left pt-6 bg-secondary-bg-light dark:bg-secondary-bg-dark p-2 rounded border border-tertiary-bg-light dark:border-tertiary-bg-dark" placeholder="Type here..." ref={chatbot} type="text" />
              <FileUpload/>
              <SendIcon className=" relative -left-10 " onClick={sendChat}  />
              

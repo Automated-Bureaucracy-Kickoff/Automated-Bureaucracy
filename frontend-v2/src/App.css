@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* light background colors */
+    --color-primary-bg-light: var(--color-zinc-100);
+    --color-secondary-bg-light: var(--color-zinc-50);
+    --color-tertiary-bg-light: var(--color-zinc-200);
+    /* dark background colors */
+    --color-primary-bg-dark: var(--color-zinc-900);
+    --color-tertiary-bg-dark: var(--color-zinc-950); 
+    --color-secondary-bg-dark: var(--color-zinc-700);
+    
+    /* Text colors */
+    --color-primary-text-light: var(--color-950);
+    --color-primary-text-dark: var(--color-zinc-50);
+    --color-secondary-text-light: var(--color-zinc-900);
+    --color-secondary-text-dark: var(--color-zinc-100);
+
+    /* Accent colors */
+    --color-primary-accent-light: var(--color-green-700);
+    --color-primary-accent-dark: var(--color-green-300);
+    --color-secondary-accent-light: var(--color-green-300);
+    --color-secondary-accent-dark: var(--color-green-700);
+  }

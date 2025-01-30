@@ -19,7 +19,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-zinc-200 text-black dark:bg-zinc-800 dark:text-zinc-200">
+    <nav className="bg-tertiary-bg-light text-black dark:bg-tertiary-bg-dark text-tertiary-text-light dark:text-primary-text-dark">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold">
@@ -33,7 +33,7 @@ const Navbar = () => {
 
         {/* Hamburger Icon (Visible on small screens) */}
         <button
-          className="md:hidden block text-black dark:text-white focus:outline-none"
+          className="md:hidden block text-primary-text-light dark:text-text-primary-text-dark focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
