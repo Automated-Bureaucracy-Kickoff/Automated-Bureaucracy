@@ -4,6 +4,7 @@ import { aiResponse, setflag, userQuery } from "../redux/slices/chatbotState"
 import SendIcon from '@mui/icons-material/Send';
 import mimickApi from "../controller/api-Mimick";
 import FileUpload from "./FileUpload";
+
 const Input = () => {
   const dispatch = useDispatch()
   let flag = useSelector((state) => state.chatbot.flag)
@@ -27,28 +28,24 @@ const Input = () => {
   }
 
   return (
-    <div className="fixed bottom-[10px] right-[20vw]   flex items-center 
-                        rounded-[15px] ">
+    <div className="relative flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
 
-      <textarea
-        onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) sendChat(); }}
-        className="w-[40vw] h-[50px] rounded-[25px] px-5 text-[16px] 
-             border border-[var(--color-tertiary-bg)] dark:border-[var(--color-tertiary-bg)] 
-             outline-none transition duration-300 focus:border-blue-500 
-             text-[var(--color-primary-text)] dark:text-[var(--color-primary-text-dark)] bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] resize-none box-border"
-        placeholder="Type here..."
-        ref={chatbot}
-        type="text"
-      />
+        {/* Textarea for Chat */}
+        <textarea
+            onKeyDown={(event) => {
+            if (event.key === "Enter" && !event.shiftKey) sendChat();
+            }}
+            className="flex-1 rounded-lg p-2 border border-[var(--color-tertiary-bg)] dark:border-[var(--color-tertiary-bg)] outline-none transition duration-300 focus:border-blue-500 text-[var(--color-primary-text)] dark:text-[var(--color-primary-text-dark)] bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] resize-none box-border"
+            placeholder="Type here..."
+            ref={chatbot}
+            type="text"
+        />
 
-      <FileUpload />
+        {/* File Upload Button */}
+        <FileUpload />
+        <SendIcon onClick={sendChat}/>
 
-      <SendIcon
-        className="w-[35px] cursor-pointer transition-transform duration-200 
-                       hover:scale-110 text-[var(--color-primary-accent)] 
-                       dark:text-[var(--color-primary-accent)] relative -left-9 "
-        onClick={sendChat}
-      />
+      
     </div>
   );
 

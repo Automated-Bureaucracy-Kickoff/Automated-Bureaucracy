@@ -10,7 +10,7 @@ const Response = () => {
   return (
     <div className="flex flex-col p-5 ">
     
-      <div className="text-[var(--color-primary-text)] text-3xl font-bold p-4 mb-3 text-left z-20 fixed w-[100%] left-[20vw] top-[10vh]">
+      <div className="text-[var(--color-primary-text)] text-3xl font-bold p-4 mb-3 text-left z-20 fixed w-full left-[20vw] top-[10vh]">
         {title || "Default Title"} 
         <EditIcon
           className="relative -left-1 top-1"
