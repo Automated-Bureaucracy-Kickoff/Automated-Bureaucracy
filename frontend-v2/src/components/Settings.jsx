@@ -37,7 +37,7 @@ export default function SettingsComponent() {
 
   return (
     <>
-      <h2 className="text-3xl font-semibold mb-0 p-6 text-[var(--color-primary-text)]">Settings</h2>
+      <h2 className="text-3xl font-semibold mt-3 p-6 text-[var(--color-primary-text)]">Settings</h2>
       <div className="space-y-3 p-6 -mt-9 mb-14 relative">
         <div>
           <label className="block font-medium text-[var(--color-primary-text)]">No of agents</label>
