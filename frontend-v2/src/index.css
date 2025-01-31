@@ -9,28 +9,46 @@ this is the left message i.e user prompt
 @layer base {
   :root {
     /* Light Mode Variables */
-    --color-primary-bg: #f4f4f5; /* zinc-100 */
-    --color-secondary-bg: #fafafa; /* zinc-50 */
-    --color-tertiary-bg: #e4e4e7; /* zinc-200 */
-    --color-primary-text: #09090b; /* zinc-950 */
-    --color-secondary-text: #18181b; /* zinc-900 */
-    --color-primary-accent: #15803d; /* green-700 */
-    --color-secondary-accent: #86efac; /* green-300 */
-    --color-message-right-bg  : blue;
-    --color-message-left-bg  : purple;
+    --color-primary-bg: #f4f4f5;
+    /* zinc-100 */
+    --color-secondary-bg: #fafafa;
+    /* zinc-50 */
+    --color-tertiary-bg: #e4e4e7;
+    /* zinc-200 */
+    --color-primary-text: #09090b;
+    /* zinc-950 */
+    --color-secondary-text: #18181b;
+    /* zinc-900 */
+    --color-primary-accent: #15803d;
+    /* green-700 */
+    --color-secondary-accent: #86efac;
+    /* green-300 */
+    --color-message-right-bg: blue;
+    --color-message-left-bg: purple;
   }
-  
+
   /* Dark Mode */
   .dark {
-    --color-primary-bg: #18181b; /* zinc-900 */
-    --color-secondary-bg: #3f3f46; /* zinc-700 */
-    --color-tertiary-bg: #09090b; /* zinc-950 */
-    --color-primary-text: #fafafa; /* zinc-50 */
-    --color-secondary-text: #e4e4e7; /* zinc-100 */
-    --color-primary-accent: #86efac; /* green-300 */
-    --color-secondary-accent: #15803d; /* green-700 */
-    --color-message-right-bg  : orange;
-    --color-message-left-bg  : red;
+    --color-primary-bg: #18181b;
+    /* zinc-900 */
+    --color-secondary-bg: #3f3f46;
+    /* zinc-700 */
+    --color-tertiary-bg: #09090b;
+    /* zinc-950 */
+    --color-primary-text: #fafafa;
+    /* zinc-50 */
+    --color-secondary-text: #e4e4e7;
+    /* zinc-100 */
+    --color-primary-accent: #86efac;
+    /* green-300 */
+    --color-secondary-accent: #15803d;
+    /* green-700 */
+    --color-message-right-bg: #1E90FF;  /* Dodger Blue */
+    --color-message-left-bg: #3A3B3C; 
+  }
+
+  * {
+    scrollbar-width: none;
   }
 }
 
