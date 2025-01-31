@@ -25,8 +25,7 @@ const Response = () => {
     
       {messages.map((ele, index) => (
         <div
-        className={`${index % 2 === 0 ? "self-end bg-[var(--color-message-right-bg)]" : "self-start bg-[var(--color-message-left-bg)]"} 
-                     dark:bg-[var(--color-secondary-bg-dark)] bg-[var(--color-secondary-bg)] 
+        className={`${index % 2 === 0 ? "self-end bg-[var(--color-message-right-bg)] dark:bg-[var(--color-message-right-bg)] " : "self-start bg-[var(--color-message-left-bg)] dark:bg-[var(--color-message-left-bg)]"}  
                     mb-2 min-h-fit relative p-3 rounded-lg text-xl word-wrap break-words max-w-96 `}
             
         key={index + ele[0]}
