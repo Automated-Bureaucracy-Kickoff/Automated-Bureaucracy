@@ -6,19 +6,20 @@ import { removeHistory } from "../redux/slices/previousChat";
 function HistorySection() {
   const history = useSelector((state) => state.history.history);
   const dispatch = useDispatch();
-
+ 
+      
   return (
     <>
       <CreateNewChat />
       <div
         className="fixed top-20 left-3 mt-10 w-[18vw] h-[75vh] rounded-xl p-5 
-             shadow-lg bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] 
+             shadow-lg bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] ;
              overflow-y-auto z-10"
       >
         {history.map(({ title, messages, timestamp }, idx) => (
           <div
             key={title + idx}
-            onClick={() => {dispatch(accessHistory(history[idx])); dispatch(removeHistory(history[idx]))}}
+            onClick={() => {dispatch(accessHistory(history[idx])); dispatch(removeHistory(history[idx]));}}
             className="bg-[var(--color-primary-bg)] dark:bg-[var(--color-primary-bg)] 
                    hover:bg-[var(--color-tertiary-bg)] dark:hover:bg-[var(--color-tertiary-bg)] 
                    transition-all duration-300 rounded-lg p-4 cursor-pointer mb-3 shadow-md"

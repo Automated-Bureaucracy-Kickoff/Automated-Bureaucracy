@@ -12,8 +12,7 @@ export const chatHistorySlice = createSlice({
         state.history.push(action.payload)
     },
     removeHistory:(state,action)=>{
-      // console.log("removeHistory",action.payload)
-      // state.history.filter((ele)=>ele!=action.payload)
+      state.history=state.history.filter((ele)=>JSON.stringify(ele)!=JSON.stringify(action.payload))
       
     }
     // getHistory: (state, action) => {
