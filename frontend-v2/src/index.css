@@ -23,8 +23,10 @@ this is the left message i.e user prompt
     /* green-700 */
     --color-secondary-accent: #86efac;
     /* green-300 */
-    --color-message-right-bg: blue;
-    --color-message-left-bg: purple;
+    --color-message-right-bg: #E0E0E0;
+    /* Slightly darker than #F3F3F3 */
+    --color-message-left-bg: #D9D9D9;
+    
   }
 
   /* Dark Mode */
@@ -43,8 +45,10 @@ this is the left message i.e user prompt
     /* green-300 */
     --color-secondary-accent: #15803d;
     /* green-700 */
-    --color-message-right-bg: #1E90FF;  /* Dodger Blue */
-    --color-message-left-bg: #3A3B3C; 
+    --color-message-right-bg: #2A2A2A;
+    /* Dark Grey */
+    --color-message-left-bg: #1E1E1E;
+    /* Even Darker Grey */
   }
 
   * {

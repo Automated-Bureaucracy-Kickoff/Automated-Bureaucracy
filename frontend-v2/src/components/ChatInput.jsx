@@ -27,7 +27,7 @@ const Input = () => {
   }
 
   return (
-    <div className="fixed bottom-[60px] right-[15vw] flex items-center 
+    <div className="fixed bottom-[10px] right-[20vw]   flex items-center 
                         rounded-[15px] ">
 
       <textarea
