@@ -6,3 +6,4 @@ openai
 langchain-google-genai
 google-generativeai
 langgraph
+langchain_community

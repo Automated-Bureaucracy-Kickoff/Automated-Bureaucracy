@@ -9,7 +9,7 @@ def main():
                   "Chat","Exit"
                   ]
     ).ask()
-    
+
     if choice == "Chat":
         agent = Agent()
         agent.create_agent()
