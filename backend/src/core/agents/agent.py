@@ -1,5 +1,10 @@
 import questionary as qy
 from api_agent import api_Agent
+
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import START, MessagesState, StateGraph
+
+
 class Agent():
 
     def create_agent(self):
@@ -16,6 +21,22 @@ class Agent():
         print("")
         self.agent = agent
         return
-    def chat(self,message: str) -> str:
-        response =  self.agent.llm.invoke(message)
-        return response
+    
+    def call_model(self, state: MessagesState):
+        response = self.agent.llm.invoke(state["messages"])
+        return {"messages": response}
+
+    
+    def init_app(self):
+        self.workflow = StateGraph(state_schema=MessagesState)
+        self.workflow.add_edge(START, "model")
+        self.workflow.add_node("model", self.call_model)  
+        self.memory = MemorySaver()
+        self.app = self.workflow.compile(checkpointer=self.memory)
+
+        
+    def invoke_app(self, content, config):
+        output = self.app.invoke(content, config)
+        
+        return output
+    
