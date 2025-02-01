@@ -1,5 +1,5 @@
 import questionary as qy
-from api_agent import api_Agent
+from core.agents.api_agent import api_Agent
 class Agent():
 
     def create_agent(self):
