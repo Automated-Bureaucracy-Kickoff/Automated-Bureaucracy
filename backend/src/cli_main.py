@@ -15,12 +15,12 @@ def main():
         agent.create_agent()
         agent.init_app()
         print("")
-        message = ""
+        message = qy.text("what is your prompt or Exit to leave").ask()
         config = {"configurable": {"thread_id": "abc123"}}
-        while message != "Exit":
-            message = qy.text("what is your prompt or Exit to leave").ask()
+        while message.lower() != "exit":
             response = agent.invoke_app(message,config)
             print(response["messages"][-1].content)
+            message =qy.text("what is your prompt or Exit to leave").ask()
         print("")
     
     else:
@@ -29,4 +29,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print("hello")
