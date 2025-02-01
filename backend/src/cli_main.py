@@ -1,56 +1,48 @@
 import questionary as qy
-from core.agents.agent import Agent
-from dotenv import load_dotenv
+from core.agents.api_agent import api_Agent
 
-load_dotenv()
 
-def setup_thought_sim() -> tuple[Agent,int]:
-    choice = qy.text("How many agents would you like").ask()
+def get_agent() -> api_Agent:
+    name = qy.text("What is your agents name").ask()
     print("")
-    print(choice)
-    print(type(choice))
-    agents = []
-    for i in range(int(choice)):
-        name = qy.text(f"Name of agent{i}?").ask()
-        print("")
-        prompt = qy.text(f"Prompt for agent{i}?").ask()
-        agents.append(Agent(name=name,system_prompt=prompt))
-        print("")
-        
-    iterations = qy.text("How many iterations would you like to simulate").ask()
-        
-    return agents, iterations
+    provider = qy.select("Which provider",
+              choices = ["openai","google"]).ask()
+    agent = api_Agent(name=name, provider=provider)
+    print("")
+    model = qy.select("Which Model", 
+                      choices = agent.get_provider_model_names()
+                      ).ask() 
+    agent.init_model(model=model)
+    print("")
+    return agent
     
-def run_thought_sim(agents: list[Agent], iterations: int):
     
-    response = qy.text("What is the prompt for the group of agents").ask()
-    convo_segments= []
-    for i in range(int(iterations)):
-        for agent in agents:
-            response = agent.execute_task(response)
-            convo_segments.append(response)
-            
+def chat(agent: api_Agent) -> str:
+    
+    message = qy.text("what is your prompt").ask()
+    
+    response =  agent.llm.invoke(message)
+    return response
 
-    
 
 def main():
     print("Welcome to Automated Bureaucracy via Command Line")
     print("")
     choice = qy.select( "What do you want to do",
               choices=[
-                  "Run Thought Simulation","Exit"
+                  "Chat","Exit"
                   ]
     ).ask()
     
-    if choice == "Run Thought Simulation":
-        agents,iter = setup_thought_sim()
+    if choice == "Chat":
+        agent = get_agent()
         print("")
-        run_thought_sim(agents,iter)
+        response = chat(agent)
+        print(response.content)
         print("")
     
     else:
         exit()
-        
     
 
 if __name__ == "__main__":

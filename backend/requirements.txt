@@ -1,8 +1,7 @@
 fastapi
-uvicorn
-python-dotenv
+questionary
 langchain
-tavily
-mlflow
+langchain-openai
 openai
-tavily-python
+langchain-google-genai
+google-generativeai
