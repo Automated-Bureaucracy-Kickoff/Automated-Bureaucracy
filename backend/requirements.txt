@@ -1,0 +1,7 @@
+fastapi
+questionary
+langchain
+langchain-openai
+openai
+langchain-google-genai
+google-generativeai

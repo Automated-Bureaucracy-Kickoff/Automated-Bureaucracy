@@ -1,6 +1,62 @@
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  line-height: 1.2rem;
+/* 
+Decide which colors you want to use 
+this is for right message i.e system response 
+--color-message-right-bg =    
+this is the left message i.e user prompt
+--color-message-left-bg =  */
+
+/* Define Theme Variables */
+@layer base {
+  :root {
+    /* Light Mode Variables */
+    --color-primary-bg: #f4f4f5;
+    /* zinc-100 */
+    --color-secondary-bg: #fafafa;
+    /* zinc-50 */
+    --color-tertiary-bg: #e4e4e7;
+    /* zinc-200 */
+    --color-primary-text: #09090b;
+    /* zinc-950 */
+    --color-secondary-text: #18181b;
+    /* zinc-900 */
+    --color-primary-accent: #15803d;
+    /* green-700 */
+    --color-secondary-accent: #86efac;
+    /* green-300 */
+    --color-message-right-bg: #E0E0E0;
+    /* Slightly darker than #F3F3F3 */
+    --color-message-left-bg: #D9D9D9;
+    
+  }
+
+  /* Dark Mode */
+  .dark {
+    --color-primary-bg: #18181b;
+    /* zinc-900 */
+    --color-secondary-bg: #3f3f46;
+    /* zinc-700 */
+    --color-tertiary-bg: #09090b;
+    /* zinc-950 */
+    --color-primary-text: #fafafa;
+    /* zinc-50 */
+    --color-secondary-text: #e4e4e7;
+    /* zinc-100 */
+    --color-primary-accent: #86efac;
+    /* green-300 */
+    --color-secondary-accent: #15803d;
+    /* green-700 */
+    --color-message-right-bg: #2A2A2A;
+    /* Dark Grey */
+    --color-message-left-bg: #1E1E1E;
+    /* Even Darker Grey */
+  }
+
+  * {
+    scrollbar-width: none;
+  }
 }
+
+/* 
+  It is css reset !! browser apply default css to all html elements , with this i have  removed default css . 
+  let's keep this little bit of css 
+*/
