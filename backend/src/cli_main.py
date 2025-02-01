@@ -17,10 +17,7 @@ def get_agent() -> api_Agent:
     return agent
     
     
-def chat(agent: api_Agent) -> str:
-    
-    message = qy.text("what is your prompt").ask()
-    
+def chat(agent: api_Agent, message: str) -> str:
     response =  agent.llm.invoke(message)
     return response
 
@@ -37,8 +34,11 @@ def main():
     if choice == "Chat":
         agent = get_agent()
         print("")
-        response = chat(agent)
-        print(response.content)
+        message = ""
+        while message != "exit":
+            message = qy.text("what is your prompt or exit to leave").ask()
+            response = chat(agent, message)
+            print(response.content)
         print("")
     
     else:
