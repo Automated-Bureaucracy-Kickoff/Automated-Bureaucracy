@@ -2,24 +2,25 @@ import questionary as qy
 from core.agents.api_agent import api_Agent
 
 
-def get_agent() -> api_Agent:
-    name = qy.text("What is your agents name").ask()
-    print("")
-    provider = qy.select("Which provider",
-              choices = ["openai","google"]).ask()
-    agent = api_Agent(name=name, provider=provider)
-    print("")
-    model = qy.select("Which Model", 
-                      choices = agent.get_provider_model_names()
-                      ).ask() 
-    agent.init_model(model=model)
-    print("")
-    return agent
-    
-    
-def chat(agent: api_Agent, message: str) -> str:
-    response =  agent.llm.invoke(message)
-    return response
+class Agent():
+
+    def create_agent(self):
+        self.name = qy.text("What is your agents name").ask()
+        print("")
+        provider = qy.select("Which provider",
+                choices = ["openai","google"]).ask()
+        agent = api_Agent(name=self.name, provider=provider)
+        print("")
+        self.model = qy.select("Which Model", 
+                        choices = agent.get_provider_model_names()
+                        ).ask() 
+        agent.init_model(model=self.model)
+        print("")
+        self.agent = agent
+        return
+    def chat(self,message: str) -> str:
+        response =  self.agent.llm.invoke(message)
+        return response
 
 
 def main():
@@ -32,12 +33,13 @@ def main():
     ).ask()
     
     if choice == "Chat":
-        agent = get_agent()
+        agent = Agent()
+        agent.create_agent()
         print("")
         message = ""
         while message != "exit":
             message = qy.text("what is your prompt or exit to leave").ask()
-            response = chat(agent, message)
+            response = agent.chat(message)
             print(response.content)
         print("")
     
@@ -47,3 +49,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("hello")
