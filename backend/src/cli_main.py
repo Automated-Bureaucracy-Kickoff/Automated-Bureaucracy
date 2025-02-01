@@ -20,7 +20,7 @@ def main():
         while message != "Exit":
             message = qy.text("what is your prompt or Exit to leave").ask()
             response = agent.invoke_app(message,config)
-            print(response["messages"][1].content)
+            print(response["messages"][-1].content)
         print("")
     
     else:
