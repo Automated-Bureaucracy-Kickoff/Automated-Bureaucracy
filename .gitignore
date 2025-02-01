@@ -1,1 +1,6 @@
 __pycache__
+.*rc
+.*rc.*
+*.rc
+debug*
+message*
