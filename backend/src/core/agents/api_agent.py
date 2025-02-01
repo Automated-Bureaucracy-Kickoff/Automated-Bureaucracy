@@ -3,6 +3,8 @@ from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 import google.generativeai as genai
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import START, MessagesState, StateGraph
 
 
 class api_Agent():
@@ -40,11 +42,13 @@ class api_Agent():
             
         if self.model_name:
             print("HI")
+            
             if self.provider == "openai":
                 self.llm = ChatOpenAI(model=self.model_name, api_key=self.apikey)
             elif self.provider == "google":
                 print("HI")
                 self.llm = ChatGoogleGenerativeAI(model=self.model_name, api_key=self.apikey)
+                
 
         
     
