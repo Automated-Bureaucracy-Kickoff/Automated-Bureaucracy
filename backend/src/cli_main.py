@@ -35,7 +35,7 @@ def main():
         agent = get_agent()
         print("")
         message = ""
-        while message != "exit":
+        while message != "Exit":
             message = qy.text("what is your prompt or exit to leave").ask()
             response = chat(agent, message)
             print(response.content)
