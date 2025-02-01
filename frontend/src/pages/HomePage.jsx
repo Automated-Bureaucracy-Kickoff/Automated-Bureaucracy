@@ -6,12 +6,12 @@ function HomePage() {
 
     return (
         <>
-            <div className="flex flex-col dark:text-white m-8 p-8 rounded">
+            <div className="flex flex-col dark:text-white p-8 rounded">
                 <div className = "flex justify-between bg-zinc-300 dark:bg-zinc-700 rounded p-4 m-4">
                     <div className="flex flex-col flex-grow justify-center space-y-4 items-center">
                         <h1 className="text-2xl">Agents to help with the things no one wants to do</h1>
                         <h2 className="text-xl ">Customizable agents to speed up and automate everyday tasks for the working professional. From coding to research and documentation. Automated Bureaucracy has your back</h2>
-                        <div className = "flex space-x-4">
+                        <div className = "flex gap-x-4">
                             <Button variant="contained">Watch Example</Button>
                             <Button variant="contained">Start Exploring</Button>
                         </div>

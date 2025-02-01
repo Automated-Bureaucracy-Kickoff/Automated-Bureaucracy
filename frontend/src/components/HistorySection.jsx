@@ -12,10 +12,7 @@ function HistorySection() {
     <>
       <CreateNewChat />
       <div
-        className="fixed top-20 left-3 mt-10 w-[18vw] h-[75vh] rounded-xl p-5 
-             shadow-lg bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] ;
-             overflow-y-auto z-10"
-      >
+        className="relative h-full w-full m-6 w-1/8 h-3/4 rounded-xl p-5 shadow-lg bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)]; overflow-y-auto z-10">
         {history.map(({ title, messages, timestamp }, idx) => (
           <div
             key={title + idx}

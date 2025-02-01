@@ -13,7 +13,7 @@ function CreateNewChat() {
         dispatch(appendHistory({ messages, files, title }))
     }
     return (
-        <div className="absolute top-[80px] flex justify-evenly gap-16 " >
+        <div className="relative top-2 flex justify-evenly gap-8 " >
             <SettingsIcon className="m-2" onClick={() => dispatch(toggleSetting())} />
             <button
                 onClick={clearChat}
