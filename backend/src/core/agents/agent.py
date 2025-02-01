@@ -1,7 +1,8 @@
 import questionary as qy
-from api_agent import api_Agent
+from .api_agent import api_Agent
 
 from langgraph.checkpoint.memory import MemorySaver
+from langchain_core.messages import HumanMessage
 from langgraph.graph import START, MessagesState, StateGraph
 
 
@@ -36,7 +37,7 @@ class Agent():
 
         
     def invoke_app(self, content, config):
-        output = self.app.invoke(content, config)
+        output = self.app.invoke({"messages":[HumanMessage(content)]}, config)
         
         return output
     
