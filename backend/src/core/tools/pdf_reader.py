@@ -1,4 +1,5 @@
 from langchain_community.document_loaders import PyPDFLoader, PyPDFDirectoryLoader
+from langchain_core.tools import tool
 
 def load_pdf(path: str):
     loader = PyPDFLoader(path)

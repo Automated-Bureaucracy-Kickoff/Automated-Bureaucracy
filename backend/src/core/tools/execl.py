@@ -1,5 +1,6 @@
 import logging
 from langchain_community.document_loaders import UnstructuredExcelLoader
+from langchain_core.tools import tool
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

@@ -3,9 +3,10 @@ from .api_agent import api_Agent
 
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import HumanMessage
-from langgraph.graph import START, MessagesState, StateGraph
+from langgraph.graph import START, MessagesState
 from .vars import *
-
+from core.tools.search import search
+from langgraph.prebuilt import create_react_agent
 
 class Agent():
     """
@@ -22,31 +23,18 @@ class Agent():
                         ).ask() 
         agent.init_model(model=self.model)
         print("")
+        self.memory = MemorySaver()
+        agent = create_react_agent(agent.llm, [search],checkpointer=self.memory)
         self.agent = agent
         return
     
     """
     prompts the ai model with a message and returns a dict containing its response
     """
-    
-    def call_model(self, state: MessagesState):
-        response = self.agent.llm.invoke(state["messages"])
-        return {"messages": response}
 
-    """
     
-    """
-    
-    def init_app(self):
-        self.workflow = StateGraph(state_schema=MessagesState)
-        self.workflow.add_edge(START, "model")
-        self.workflow.add_node("model", self.call_model)  
-        self.memory = MemorySaver()
-        self.app = self.workflow.compile(checkpointer=self.memory)
-
-        
-    def invoke_app(self, content, config):
-        output = self.app.invoke({"messages":[HumanMessage(content)]}, config)
+    def invoke_agent(self, content, config):
+        output = self.agent.invoke({"messages":[HumanMessage(content)]}, config)
         
         return output
     
