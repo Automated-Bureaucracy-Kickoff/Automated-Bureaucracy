@@ -8,8 +8,7 @@ from langgraph.graph import START, MessagesState, StateGraph
 
 
 class api_Agent():
-    def __init__(self, name, provider):
-        self.name = name
+    def __init__(self, provider):
         self.provider = provider
         
         if self.provider == "openai":
@@ -41,12 +40,10 @@ class api_Agent():
             print(f"invalid model name for {self.provider}")
             
         if self.model_name:
-            print("HI")
             
             if self.provider == "openai":
                 self.llm = ChatOpenAI(model=self.model_name, api_key=self.apikey)
             elif self.provider == "google":
-                print("HI")
                 self.llm = ChatGoogleGenerativeAI(model=self.model_name, api_key=self.apikey)
                 
 

@@ -15,7 +15,7 @@ class Agent():
     def create_agent(self):
         provider = qy.select("Which provider",
                 models_by_prov.keys()).ask()
-        agent = api_Agent(name=self.name, provider=provider)
+        agent = api_Agent(provider=provider)
         print("")
         self.model = qy.select("Which Model", 
                         models_by_prov[provider]
