@@ -12,13 +12,15 @@ function App() {
   return (
     <BrowserRouter>
         <Provider store={store}>
-            <div className="w-screen h-screen bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100">
+            <div className="flex flex-col w-screen h-screen bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100">
                 <Navbar></Navbar>
-                <Routes>
-                    <Route path='/' element={<> <HomePage/> </>}/>
-                    <Route path='/mainPage' element={<> <MainPage/>  </>} />
-                    <Route path='/testing' element={<> <ChatBot /> </>} />
-                </Routes>
+                <div className="flex w-full h-full">
+                    <Routes>
+                        <Route path='/' element={<> <HomePage/> </>}/>
+                        <Route path='/mainPage' element={<> <MainPage/>  </>} />
+                        <Route path='/testing' element={<> <ChatBot /> </>} />
+                    </Routes>
+                </div>
             </div>
         </Provider>
     </BrowserRouter>

@@ -8,11 +8,11 @@ const MainPage = () => {
     const settingToggle = useSelector((state) => state.toggle.settingsDisplay)
     return (
         <>
-            <div className="flex w-full h-full bg-[var(--color-primary-bg)] dark:bg-[var(--color-primary-bg)] overflow-auto">
-                <div className = "h-full w-1/4">
+            <div className="flex w-full h-full bg-[var(--color-primary-bg)] dark:bg-[var(--color-primary-bg)]">
+                <div className = "flex h-full w-1/3">
                     <HistorySection />
                 </div>
-                <div>
+                <div className = "flex w-full h-full">
                     {settingToggle ? <Settings /> : <ChatBot />}
                 </div>
             </div>

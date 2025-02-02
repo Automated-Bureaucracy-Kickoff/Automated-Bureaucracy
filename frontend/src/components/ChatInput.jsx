@@ -28,7 +28,7 @@ const Input = () => {
   }
 
   return (
-    <div className="relative flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
+    <div className="flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
 
         {/* Textarea for Chat */}
         <textarea

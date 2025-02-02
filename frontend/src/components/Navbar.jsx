@@ -19,7 +19,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 w-full bg-zinc-200 text-black dark:bg-zinc-800 dark:text-zinc-200">
+    <nav className="w-full h-16 bg-zinc-200 text-black dark:bg-zinc-800 dark:text-zinc-200">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold">
@@ -69,7 +69,7 @@ const Navbar = () => {
 
         {/* Mobile Menu (Visible when menu icon is clicked) */}
         {isMenuOpen && (
-          <ul className="md:hidden absolute top-14 left-0 w-full bg-zinc-200 dark:bg-zinc-800 flex flex-col space-y-4 p-4 shadow-lg">
+          <ul className="md:hidden sticky top-0 w-full bg-zinc-200 dark:bg-zinc-800 flex flex-col space-y-4 p-4 shadow-lg">
             {routes.map((route) => (
                 <li key={route.path}>
                     <Link
