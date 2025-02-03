@@ -12,8 +12,8 @@ function App() {
   return (
     <BrowserRouter>
         <Provider store={store}>
-            <div className="flex flex-col w-screen h-screen bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100">
-                <Navbar></Navbar>
+            <div className="overflowremover flex flex-col w-screen h-screen  max-h-full  bg-zinc-100 dark:bg-zinc-900 dark:text-zinc-100">
+                <Navbar/>
                 <div className="flex w-full h-full">
                     <Routes>
                         <Route path='/' element={<> <HomePage/> </>}/>

@@ -2,10 +2,16 @@ import { useSelector } from "react-redux"
 import ChatBot from "../components/ChatBot"
 import HistorySection from "../components/HistorySection"
 import Settings from "../components/Settings"
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 
 const MainPage = () => {
     const settingToggle = useSelector((state) => state.toggle.settingsDisplay)
+    let location = useLocation()
+    useEffect(()=>{
+        if(location.pathname=="/mainPage")document.querySelector(".overflowremover").style.overflowY="hidden"
+    },[])
     return (
         <>
             <div className="flex w-full h-full bg-[var(--color-primary-bg)] dark:bg-[var(--color-primary-bg)]">

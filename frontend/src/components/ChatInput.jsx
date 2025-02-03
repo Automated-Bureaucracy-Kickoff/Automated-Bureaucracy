@@ -28,7 +28,7 @@ const Input = () => {
   }
 
   return (
-    <div className="flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
+    <div className="relative -top-16 -left-16 flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
 
         {/* Textarea for Chat */}
         <textarea
@@ -40,7 +40,7 @@ const Input = () => {
             ref={chatbot}
             type="text"
         />
-
+         {/* <div className="loading lv-circles sm lvl-5" data-label="Loading..." style={{display:"none"}}></div> */}
         {/* File Upload Button */}
         <FileUpload />
         <SendIcon onClick={sendChat}/>

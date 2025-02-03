@@ -8,7 +8,7 @@ function HistorySection() {
     const dispatch = useDispatch();
   
     return (
-      <div className="flex flex-col h-full w-full gap-2">
+      <div className="flex flex-col h-[80%] w-[80%] gap-2 ml-4">
         {/* Header: fixed height (flex-none) */}
         <div className="flex-none">
           <CreateNewChat />
