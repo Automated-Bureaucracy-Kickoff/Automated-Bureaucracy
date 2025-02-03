@@ -2,8 +2,7 @@ import questionary as qy
 from .api_agent import api_Agent
 
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_core.messages import HumanMessage
-from langgraph.graph import START, MessagesState
+from langchain_core.messages import HumanMessage, SystemMessage
 from .vars import *
 from core.tools.search import search
 from langgraph.prebuilt import create_react_agent
@@ -28,13 +27,27 @@ class Agent():
         self.agent = agent
         return
     
-    """
-    prompts the ai model with a message and returns a dict containing its response
-    """
-
+    def set_system_message(self, message):
+        self.set_system_message = message
     
-    def invoke_agent(self, content, config):
-        output = self.agent.invoke({"messages":[HumanMessage(content)]}, config)
+    def invoke_agent(self, prompt, config):
+        if self.system_prompt:
+            
+            content = [
+                SystemMessage(
+                    content=self.system_message
+                ),
+                HumanMessage(
+                    content=prompt
+                )
+            ]
+        else:
+            content = [
+                HumanMessage(
+                    content=prompt
+                )
+            ]
+        output = self.agent.invoke(content, config)
         
         return output
     
