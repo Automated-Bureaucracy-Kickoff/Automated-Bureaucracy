@@ -28,8 +28,7 @@ const Input = () => {
   }
 
   return (
-    <div className="relative -top-16 -left-16 flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
-
+    <div className="relative left-5  md:relative -top-10 md:-left-16 flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
         {/* Textarea for Chat */}
         <textarea
             onKeyDown={(event) => {

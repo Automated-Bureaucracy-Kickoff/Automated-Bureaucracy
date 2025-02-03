@@ -43,9 +43,12 @@
     --color-message-left-bg: #1E1E1E;
     /* Even Darker Grey */
   }
-
+  
   * {
     scrollbar-width: none;
+  }
+  @theme{
+    --breakpoint-xs: 1000px;
   }
 }
 

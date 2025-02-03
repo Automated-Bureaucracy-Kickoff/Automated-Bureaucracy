@@ -15,7 +15,7 @@ const MainPage = () => {
     return (
         <>
             <div className="flex w-full h-full bg-[var(--color-primary-bg)] dark:bg-[var(--color-primary-bg)]">
-                <div className = "flex h-full w-1/3">
+                <div className = "hidden xs:hidden  md:flex h-full w-1/3">
                     <HistorySection />
                 </div>
                 <div className = "flex w-full h-full">
