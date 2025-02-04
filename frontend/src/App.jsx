@@ -16,8 +16,8 @@ function App() {
                 <Navbar/>
                 <div className="flex w-full h-full">
                     <Routes>
-                        <Route path='/' element={<> <HomePage/> </>}/>
-                        <Route path='/mainPage' element={<> <MainPage/>  </>} />
+                        {/* <Route path='/' element={<> <HomePage/> </>}/> */}
+                        <Route path='/' element={<> <MainPage/>  </>} />
                         <Route path='/testing' element={<> <ChatBot /> </>} />
                     </Routes>
                 </div>
