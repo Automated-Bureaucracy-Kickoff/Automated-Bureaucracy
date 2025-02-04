@@ -2,8 +2,8 @@ import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { aiResponse, setflag, userQuery } from "../redux/slices/chatbotState"
 import SendIcon from '@mui/icons-material/Send';
-import mimickApi from "../controller/api-Mimick";
 import FileUpload from "./FileUpload";
+import sendingDataToBackend from "../controller/api-backend";
 
 const Input = () => {
   const dispatch = useDispatch()
@@ -17,9 +17,9 @@ const Input = () => {
       chatbot.current.value = ""
       dispatch(userQuery({ message: [message, new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
       dispatch(aiResponse({ message: ["Thinking......", new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
-      try {
-        const data = await mimickApi({ message, settings })
-        dispatch(aiResponse({ message: JSON.parse(data).message, ...settings }))
+      try {    
+        const data = await sendingDataToBackend({message,settings})
+        dispatch(aiResponse({ message: data}))
       } catch (err) {
         dispatch(aiResponse({ message: JSON.parse(err).message }))
       }

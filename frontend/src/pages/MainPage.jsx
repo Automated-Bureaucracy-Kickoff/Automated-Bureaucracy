@@ -10,7 +10,8 @@ const MainPage = () => {
     const settingToggle = useSelector((state) => state.toggle.settingsDisplay)
     let location = useLocation()
     useEffect(()=>{
-        if(location.pathname=="/mainPage")document.querySelector(".overflowremover").style.overflowY="hidden"
+        // when this MainPage component shifts need to change below pathname 
+        if(location.pathname=="/")document.querySelector(".overflowremover").style.overflowY="hidden"
     },[])
     return (
         <>
