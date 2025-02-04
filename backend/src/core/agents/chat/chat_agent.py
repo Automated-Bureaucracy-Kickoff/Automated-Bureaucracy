@@ -1,33 +1,35 @@
 import questionary as qy
-from .api_agent import api_Agent
+from ..api_agent import api_Agent
 
 from langchain_core.vectorstores import InMemoryVectorStore
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import HumanMessage, SystemMessage
-from .vars import *
+from ..vars import *
 from core.tools.search import search
+from core.tools.pdf_loader import load_pdf, load_dir_of_pdfs
 from langgraph.prebuilt import create_react_agent
 
 
-class Agent():
+class ChatAgent():
     """
     prompts for which AI provider you want to use, from a list then
     then prompts which model from the provider
     """
     def create_agent(self):
         provider = qy.select("Which provider",
-                models_by_prov.keys()).ask()
-        agent = api_Agent(provider=provider)
+                chat_models_by_prov.keys()).ask()
+        name = qy.text("Name for agent?").ask()
+        agent = api_Agent(name=name, provider=provider)
         print("")
         self.model = qy.select("Which Model", 
-                        models_by_prov[provider]
+                        chat_models_by_prov[provider]
                         ).ask() 
         agent.init_model(model=self.model)
         print("")
         self.memory = MemorySaver()
-        agent = create_react_agent(agent.llm, [search],checkpointer=self.memory)
+        tools = [search, load_pdf, load_dir_of_pdfs]
+        agent = create_react_agent(agent.llm, tools ,checkpointer=self.memory)
         self.agent = agent
-        self.vector_store = InMemoryVectorStore(embeddings)
         return
     
     def set_system_message(self, message):

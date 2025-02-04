@@ -1,4 +1,3 @@
-import os
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -8,8 +7,9 @@ from langgraph.graph import START, MessagesState, StateGraph
 
 
 class api_Agent():
-    def __init__(self, provider):
+    def __init__(self, name, provider):
         self.provider = provider
+        self.name = name
         
         if self.provider == "openai":
             from env import openai_api_key

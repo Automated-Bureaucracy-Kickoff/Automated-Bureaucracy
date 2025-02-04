@@ -1,5 +1,5 @@
 import questionary as qy
-from core.agents.agent import Agent
+from backend.src.core.agents.chat.chat_agent import Agent
 
 def main():
     print("Welcome to Automated Bureaucracy via Command Line")
