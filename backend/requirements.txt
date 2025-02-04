@@ -8,3 +8,5 @@ google-generativeai
 langgraph
 langchain_community
 duckduckgo-search
+jq
+langchain-core

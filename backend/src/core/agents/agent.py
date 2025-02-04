@@ -1,11 +1,13 @@
 import questionary as qy
 from .api_agent import api_Agent
 
+from langchain_core.vectorstores import InMemoryVectorStore
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import HumanMessage, SystemMessage
 from .vars import *
 from core.tools.search import search
 from langgraph.prebuilt import create_react_agent
+
 
 class Agent():
     """
@@ -25,6 +27,7 @@ class Agent():
         self.memory = MemorySaver()
         agent = create_react_agent(agent.llm, [search],checkpointer=self.memory)
         self.agent = agent
+        self.vector_store = InMemoryVectorStore(embeddings)
         return
     
     def set_system_message(self, message):

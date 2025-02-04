@@ -5,6 +5,7 @@ from langchain_core.tools import tool
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+@tool
 def load_excel(file_path: str, mode: str = "elements"):
     """
     Loads an Excel file using UnstructuredExcelLoader.

@@ -5,6 +5,7 @@ from langchain_core.tools import tool
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+@tool
 def load_structured_csv(file_path: str, csv_args: dict):
     """
     Loads a structured CSV file using CSVLoader.
@@ -28,6 +29,7 @@ def load_structured_csv(file_path: str, csv_args: dict):
         logging.error("Error loading structured CSV file: %s - %s", file_path, str(e))
         return []
 
+@tool
 def load_unstructured_csv(file_path: str, mode: str):
     """
     Loads an unstructured CSV file using UnstructuredCSVLoader.
