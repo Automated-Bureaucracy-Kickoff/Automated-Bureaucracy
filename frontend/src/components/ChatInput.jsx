@@ -34,7 +34,7 @@ const Input = () => {
             onKeyDown={(event) => {
             if (event.key === "Enter" && !event.shiftKey) sendChat();
             }}
-            className="flex-1 rounded-lg p-2 border border-[var(--color-tertiary-bg)] dark:border-[var(--color-tertiary-bg)] outline-none transition duration-300 focus:border-blue-500 text-[var(--color-primary-text)] dark:text-[var(--color-primary-text-dark)] bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] resize-none box-border max-w-[70vw] min-h-[10vh] field-sizing-content scroll-auto  "
+            className="flex-1 rounded-lg p-2 border border-[var(--color-tertiary-bg)] dark:border-[var(--color-tertiary-bg)] outline-none transition duration-300 focus:border-blue-500 text-[var(--color-primary-text)] dark:text-[var(--color-primary-text-dark)] bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] resize-none box-border max-w-[70vw] min-h-[10vh] field-sizing-content scroll-auto max-h-[40vh] "
             placeholder="Type here..."
             ref={chatbot}
             type="text"
