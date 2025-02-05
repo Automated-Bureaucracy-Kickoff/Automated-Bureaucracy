@@ -1,3 +1,10 @@
+to run backend
+conda create -n myenv python=3.10 
+conda activate myenv
+pip install -r requirements.txt
+uvicorn api_main:app --host 0.0.0.0 --port 8000 --reload
+
+
 # AB
 Automated-Bureaucracy-Kickoff
 
