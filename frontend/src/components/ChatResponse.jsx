@@ -14,9 +14,12 @@ const Response = () => {
 
   useEffect(() => {
     if (chatResponseRef.current) {
-      chatResponseRef.current.scrollTop = chatResponseRef.current.scrollHeight;
+      chatResponseRef.current.scrollTo({
+        top: chatResponseRef.current.scrollHeight+200,
+        behavior: "smooth",
+      });
     }
-  }, [messages]); 
+  }, [messages]);
 
   return (
     <>
