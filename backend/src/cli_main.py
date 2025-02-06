@@ -1,49 +1,31 @@
 import questionary as qy
-from core.agents.api_agent import api_Agent
-
-
-def get_agent() -> api_Agent:
-    name = qy.text("What is your agents name").ask()
-    print("")
-    provider = qy.select("Which provider",
-              choices = ["openai","google"]).ask()
-    agent = api_Agent(name=name, provider=provider)
-    print("")
-    model = qy.select("Which Model", 
-                      choices = agent.get_provider_model_names()
-                      ).ask() 
-    agent.init_model(model=model)
-    print("")
-    return agent
-    
-    
-def chat(agent: api_Agent) -> str:
-    
-    message = qy.text("what is your prompt").ask()
-    
-    response =  agent.llm.invoke(message)
-    return response
-
+from backend.src.core.agents.chat.chat_agent import Agent
 
 def main():
     print("Welcome to Automated Bureaucracy via Command Line")
     print("")
     choice = qy.select( "What do you want to do",
               choices=[
-                  "Chat","Exit"
+                  "Chat","Simulate","Exit"
                   ]
     ).ask()
-    
+
     if choice == "Chat":
-        agent = get_agent()
+        agent = Agent()
+        agent.create_agent()
         print("")
-        response = chat(agent)
-        print(response.content)
+        message = qy.text("what is your prompt or Exit to leave").ask()
+        config = {"configurable": {"thread_id": "abc123"}}
+        while message.lower() != "exit":
+            response = agent.invoke_agent(message,config)
+            print(response)
+            message =qy.text("what is your prompt or Exit to leave").ask()
         print("")
+    elif choice == "Simulate":
+        print("simulaate temp")
     
     else:
         exit()
-    
 
 if __name__ == "__main__":
     main()

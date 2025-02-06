@@ -17,7 +17,7 @@ Automated-Bureaucracy-Kickoff
 - qtrann26design
 - sanidhya8897
 - SathishKumar9866
-- 
+- bagolomb
 
 Draft Strategic Business Plan v1.0 for AutomatedBureaucracy.com
 

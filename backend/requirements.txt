@@ -4,6 +4,11 @@ langchain-openai
 openai
 langchain-google-genai
 google-generativeai
-uvicorn
-pydantic 
+langgraph
+langchain_community
+duckduckgo-search
+jq
+langchain-core
+unvicorn
 fastapi[all]
+pydantic
