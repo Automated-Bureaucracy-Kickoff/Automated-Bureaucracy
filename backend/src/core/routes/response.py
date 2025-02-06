@@ -23,8 +23,26 @@ def user_prompt(req: Response):
 
     # Initialize and configure the MemorySaver checkpointer
     memory = MemorySaver()
-    agent = create_react_agent(agent.llm, tools ,checkpointer=memory)
-    config = {"configurable": {"thread_id": "abc123"}}
-    response =  agent.invoke({"messages": [HumanMessage(content=content)]},config)
+    memory.thread_id = "my_thread"
+    
+    # Create the react agent with the checkpointer
+    agent = create_react_agent(agent.llm, tools, checkpointer=memory)
+    
+    # Provide the configuration with the thread_id for persistence
+    config = {"configurable": {"thread_id": "my_thread"}}
+    
+    # Invoke the agent; ensure the input is in the expected format.
+    # If your graph expects a dict (e.g., with a "messages" key), adjust accordingly.
+    # For example, if your agent expects a state dict:
+    input_state = {"messages": [content]}
+    
+    raw_response = agent.invoke(input_state, config=config)
+    
+    # Check if the output is a dict; if it's not, wrap it accordingly.
+    if not isinstance(raw_response, dict):
+        response = {"messages": [raw_response]}
+    else:
+        response = raw_response
 
-    return response
+    return {"message": response}
+
