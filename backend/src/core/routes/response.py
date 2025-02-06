@@ -15,10 +15,13 @@ class Response(BaseModel):
 
 @router.post("/")
 def user_prompt(req: Response):
-    content = req.message
-    agent = api_Agent("chat","google")
+    # Assume req.message is the input string
+    content = req.message  
+    agent = api_Agent("chat", "google")
     agent.init_model("gemini-pro")
     tools = [search, load_pdf, load_dir_of_pdfs]
+
+    # Initialize and configure the MemorySaver checkpointer
     memory = MemorySaver()
     agent = create_react_agent(agent.llm, tools ,checkpointer=memory)
     config = {"configurable": {"thread_id": "abc123"}}
