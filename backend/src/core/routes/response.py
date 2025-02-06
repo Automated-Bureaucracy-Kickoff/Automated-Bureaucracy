@@ -5,6 +5,7 @@ from core.tools.search import search
 from core.tools.pdf_loader import load_pdf, load_dir_of_pdfs
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
+from langchain_core.messages import HumanMessage
 
 router = APIRouter()
 
@@ -20,5 +21,7 @@ def user_prompt(req: Response):
     tools = [search, load_pdf, load_dir_of_pdfs]
     memory = MemorySaver()
     agent = create_react_agent(agent.llm, tools ,checkpointer=memory)
-    response =  agent.invoke(content)
-    return {"message": response}
+    config = {"configurable": {"thread_id": "abc123"}}
+    response =  agent.invoke({"messages": [HumanMessage(content=content)]},config)
+
+    return response
