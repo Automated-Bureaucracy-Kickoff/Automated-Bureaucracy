@@ -1,5 +1,4 @@
 import mlflow
-from mlflow.pyfunc import PythonModel
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error
 from typing import Dict, Any, Tuple, Callable
@@ -11,7 +10,7 @@ class ModelFineTuner:
     Utility for fine-tuning machine learning models with MLflow integration.
     """
 
-    def __init__(self, tracking_uri: str = "http://localhost:5000"):
+    def __init__(self, tracking_uri: str = "http://localhost:5000") -> None:
         """
         Initialize the ModelFineTuner.
 
@@ -22,10 +21,10 @@ class ModelFineTuner:
 
     def load_data(self, data_path: str) -> pd.DataFrame:
         """
-        Load dataset from a file.
+        Load a dataset from a CSV file.
 
         Args:
-            data_path (str): Path to the data file.
+            data_path (str): Path to the CSV file containing the dataset.
 
         Returns:
             pd.DataFrame: Loaded dataset.
@@ -40,11 +39,12 @@ class ModelFineTuner:
 
         Args:
             data (pd.DataFrame): Dataset to split.
-            target_column (str): Column name for the target variable.
-            test_size (float, optional): Proportion of the dataset to include in the test split. Defaults to 0.2.
+            target_column (str): Name of the target variable column.
+            test_size (float, optional): Proportion of data to use for testing. Defaults to 0.2.
 
         Returns:
-            Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]: Training features, test features, training labels, test labels.
+            Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+                Training features, testing features, training labels, and testing labels.
         """
         X = data.drop(columns=[target_column])
         y = data[target_column]
@@ -56,7 +56,7 @@ class ModelFineTuner:
 
         Args:
             run_id (str): ID of the MLflow run.
-            metrics (dict): Dictionary of metrics to log.
+            metrics (Dict[str, float]): Dictionary of metrics to log.
         """
         for metric_name, metric_value in metrics.items():
             mlflow.log_metric(metric_name, metric_value)
@@ -73,31 +73,30 @@ class ModelFineTuner:
         """
         Fine-tune the model with the provided hyperparameters.
 
+        Note:
+            The current implementation assumes a classification task. For regression tasks,
+            consider adjusting the metrics accordingly.
+
         Args:
-            model (Callable): Model class or function to train.
-            train_features (pd.DataFrame): Training features.
-            train_labels (pd.Series): Training labels.
-            val_features (pd.DataFrame): Validation features.
-            val_labels (pd.Series): Validation labels.
-            hyperparameters (dict): Dictionary of hyperparameters for model initialization.
+            model (Callable): A model class or function that returns an untrained model instance.
+            train_features (pd.DataFrame): Features for training.
+            train_labels (pd.Series): Labels for training.
+            val_features (pd.DataFrame): Features for validation.
+            val_labels (pd.Series): Labels for validation.
+            hyperparameters (Dict[str, Any]): Hyperparameters for initializing the model.
 
         Returns:
-            Tuple[Any, dict]: Trained model and evaluation metrics.
+            Tuple[Any, Dict[str, float]]: The trained model and a dictionary of evaluation metrics.
         """
-        # Initialize and train the model
         trained_model = model(**hyperparameters)
         trained_model.fit(train_features, train_labels)
 
-        # Make predictions
         predictions = trained_model.predict(val_features)
-
-        # Calculate metrics
         metrics = {
             "accuracy": accuracy_score(val_labels, predictions),
             "f1_score": f1_score(val_labels, predictions, average="weighted"),
             "mse": mean_squared_error(val_labels, predictions),
         }
-
         return trained_model, metrics
 
     def track_model(
@@ -112,22 +111,21 @@ class ModelFineTuner:
         Track the fine-tuned model and its artifacts with MLflow.
 
         Args:
-            model_name (str): Name of the model.
-            trained_model (Any): Trained model instance.
-            hyperparameters (dict): Hyperparameters used for training.
-            metrics (dict): Evaluation metrics.
-            artifacts (dict, optional): Dictionary of artifact paths to log. Defaults to None.
+            model_name (str): Name under which to log the model.
+            trained_model (Any): The trained model instance.
+            hyperparameters (Dict[str, Any]): Hyperparameters used for training.
+            metrics (Dict[str, float]): Evaluation metrics.
+            artifacts (Dict[str, str], optional): A dictionary mapping artifact names to file paths.
 
         Returns:
             str: ID of the MLflow run.
         """
         with mlflow.start_run() as run:
-            # Log parameters, metrics, and model
             mlflow.log_params(hyperparameters)
             mlflow.log_metrics(metrics)
+            # Assumes a scikit-learn model; adjust as needed for other model types.
             mlflow.sklearn.log_model(trained_model, model_name)
 
-            # Log additional artifacts if provided
             if artifacts:
                 for artifact_name, artifact_path in artifacts.items():
                     mlflow.log_artifact(artifact_path, artifact_path=artifact_name)

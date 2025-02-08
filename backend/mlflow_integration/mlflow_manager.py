@@ -1,6 +1,6 @@
 import mlflow
 from mlflow.tracking import MlflowClient
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 
 class MLflowManager:
@@ -10,7 +10,7 @@ class MLflowManager:
     Provides utilities for managing experiments, logging metrics, parameters, and artifacts.
     """
 
-    def __init__(self, tracking_uri: str = "http://localhost:5000"):
+    def __init__(self, tracking_uri: str = "http://localhost:5000") -> None:
         """
         Initialize the MLflowManager with the MLflow tracking URI.
 
@@ -39,7 +39,7 @@ class MLflowManager:
 
         Args:
             run_id (str): ID of the run to log metrics to.
-            metrics (dict): A dictionary of metric names and their values.
+            metrics (Dict[str, float]): A dictionary of metric names and their values.
         """
         for metric_name, metric_value in metrics.items():
             self.client.log_metric(run_id, metric_name, metric_value)
@@ -50,18 +50,18 @@ class MLflowManager:
 
         Args:
             run_id (str): ID of the run to log parameters to.
-            params (dict): A dictionary of parameter names and their values.
+            params (Dict[str, Any]): A dictionary of parameter names and their values.
         """
         for param_name, param_value in params.items():
             self.client.log_param(run_id, param_name, param_value)
 
-    def start_run(self, experiment_name: str, run_name: str = None) -> str:
+    def start_run(self, experiment_name: str, run_name: Optional[str] = None) -> str:
         """
         Start a new run in a specific experiment.
 
         Args:
             experiment_name (str): Name of the experiment to associate the run with.
-            run_name (str, optional): Name of the run. Defaults to None.
+            run_name (Optional[str], optional): Name of the run. Defaults to None.
 
         Returns:
             str: ID of the created run.
@@ -72,7 +72,8 @@ class MLflowManager:
         else:
             experiment_id = experiment.experiment_id
 
-        run = self.client.create_run(experiment_id=experiment_id, tags={"mlflow.runName": run_name})
+        tags = {"mlflow.runName": run_name} if run_name else None
+        run = self.client.create_run(experiment_id=experiment_id, tags=tags)
         return run.info.run_id
 
     def end_run(self, run_id: str) -> None:
@@ -84,14 +85,14 @@ class MLflowManager:
         """
         self.client.set_terminated(run_id)
 
-    def log_artifact(self, run_id: str, file_path: str, artifact_path: str = None) -> None:
+    def log_artifact(self, run_id: str, file_path: str, artifact_path: Optional[str] = None) -> None:
         """
         Log an artifact to a specific run.
 
         Args:
             run_id (str): ID of the run to log the artifact to.
             file_path (str): Path to the file to log as an artifact.
-            artifact_path (str, optional): Artifact path within the run. Defaults to None.
+            artifact_path (Optional[str], optional): Artifact path within the run. Defaults to None.
         """
         self.client.log_artifact(run_id, file_path, artifact_path)
 
@@ -103,7 +104,7 @@ class MLflowManager:
             run_id (str): ID of the run to retrieve details for.
 
         Returns:
-            dict: A dictionary containing run details.
+            Dict[str, Any]: A dictionary containing run details including metrics, params, and artifacts.
         """
         run = self.client.get_run(run_id)
         return {

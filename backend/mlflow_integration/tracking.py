@@ -1,5 +1,6 @@
 import mlflow
-from typing import Dict, Any
+from mlflow.tracking import MlflowClient
+from typing import Dict, Any, List, Optional
 
 
 class TrackingManager:
@@ -7,7 +8,7 @@ class TrackingManager:
     Utility for managing MLflow tracking for experiments and runs.
     """
 
-    def __init__(self, tracking_uri: str = "http://localhost:5000"):
+    def __init__(self, tracking_uri: str = "http://localhost:5000") -> None:
         """
         Initialize the TrackingManager.
 
@@ -24,7 +25,7 @@ class TrackingManager:
             experiment_name (str): Name of the experiment.
 
         Returns:
-            str: Experiment ID.
+            str: The experiment ID.
         """
         try:
             experiment_id = mlflow.set_experiment(experiment_name)
@@ -32,16 +33,16 @@ class TrackingManager:
         except Exception as e:
             raise RuntimeError(f"Failed to set experiment '{experiment_name}': {e}")
 
-    def start_run(self, run_name: str = None, tags: Dict[str, str] = None) -> str:
+    def start_run(self, run_name: Optional[str] = None, tags: Optional[Dict[str, str]] = None) -> str:
         """
         Start a new MLflow run.
 
         Args:
-            run_name (str, optional): Name of the run. Defaults to None.
-            tags (Dict[str, str], optional): Tags to associate with the run. Defaults to None.
+            run_name (Optional[str], optional): Name of the run. Defaults to None.
+            tags (Optional[Dict[str, str]], optional): Tags to associate with the run. Defaults to None.
 
         Returns:
-            str: Run ID.
+            str: The run ID.
         """
         try:
             run = mlflow.start_run(run_name=run_name, tags=tags)
@@ -55,9 +56,6 @@ class TrackingManager:
 
         Args:
             metrics (Dict[str, float]): Metrics to log.
-
-        Raises:
-            RuntimeError: If logging fails.
         """
         try:
             mlflow.log_metrics(metrics)
@@ -70,25 +68,19 @@ class TrackingManager:
 
         Args:
             params (Dict[str, Any]): Parameters to log.
-
-        Raises:
-            RuntimeError: If logging fails.
         """
         try:
             mlflow.log_params(params)
         except Exception as e:
             raise RuntimeError(f"Failed to log parameters: {e}")
 
-    def log_artifact(self, artifact_path: str, artifact_dir: str = None) -> None:
+    def log_artifact(self, artifact_path: str, artifact_dir: Optional[str] = None) -> None:
         """
         Log an artifact to the current MLflow run.
 
         Args:
             artifact_path (str): Path to the artifact file.
-            artifact_dir (str, optional): Directory to store the artifact in MLflow. Defaults to None.
-
-        Raises:
-            RuntimeError: If logging fails.
+            artifact_dir (Optional[str], optional): Directory within MLflow to store the artifact. Defaults to None.
         """
         try:
             mlflow.log_artifact(local_path=artifact_path, artifact_path=artifact_dir)
@@ -98,9 +90,6 @@ class TrackingManager:
     def end_run(self) -> None:
         """
         End the current MLflow run.
-
-        Raises:
-            RuntimeError: If ending the run fails.
         """
         try:
             mlflow.end_run()
@@ -115,10 +104,10 @@ class TrackingManager:
             experiment_name (str): Name of the experiment.
 
         Returns:
-            Dict[str, Any]: Experiment details.
+            Dict[str, Any]: Details of the experiment.
         """
         try:
-            client = mlflow.MlflowClient()
+            client = MlflowClient()
             experiment = client.get_experiment_by_name(experiment_name)
             if not experiment:
                 raise RuntimeError(f"Experiment '{experiment_name}' does not exist.")
@@ -131,7 +120,7 @@ class TrackingManager:
         except Exception as e:
             raise RuntimeError(f"Failed to get experiment details for '{experiment_name}': {e}")
 
-    def list_runs(self, experiment_name: str) -> list:
+    def list_runs(self, experiment_name: str) -> List[Dict[str, Any]]:
         """
         List all runs for a specific experiment.
 
@@ -139,10 +128,10 @@ class TrackingManager:
             experiment_name (str): Name of the experiment.
 
         Returns:
-            list: List of runs with details.
+            List[Dict[str, Any]]: A list of runs with their details.
         """
         try:
-            client = mlflow.MlflowClient()
+            client = MlflowClient()
             experiment = client.get_experiment_by_name(experiment_name)
             if not experiment:
                 raise RuntimeError(f"Experiment '{experiment_name}' does not exist.")

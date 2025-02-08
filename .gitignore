@@ -1,1 +1,7 @@
+# Do not commit logs
+debug.log
+mlruns/
+mlflow.db
+
+# Compiled files
 __pycache__

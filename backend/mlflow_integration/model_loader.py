@@ -1,6 +1,7 @@
 import mlflow
 import mlflow.pyfunc
-from typing import Any
+from mlflow.tracking import MlflowClient
+from typing import Any, List, Dict
 
 
 class ModelLoader:
@@ -8,7 +9,7 @@ class ModelLoader:
     Utility for loading and using models tracked in MLflow.
     """
 
-    def __init__(self, tracking_uri: str = "http://localhost:5000"):
+    def __init__(self, tracking_uri: str = "http://localhost:5000") -> None:
         """
         Initialize the ModelLoader.
 
@@ -39,44 +40,43 @@ class ModelLoader:
 
         Args:
             model (Any): Loaded model instance.
-            input_data (Any): Input data for prediction. Format depends on the model.
+            input_data (Any): Input data for prediction (format depends on the model).
 
         Returns:
-            Any: Model predictions.
+            Any: Predictions made by the model.
         """
         try:
-            predictions = model.predict(input_data)
-            return predictions
+            return model.predict(input_data)
         except Exception as e:
             raise RuntimeError(f"Prediction failed: {e}")
 
-    def list_registered_models(self) -> list:
+    def list_registered_models(self) -> List[str]:
         """
         List all registered models in the MLflow tracking server.
 
         Returns:
-            list: List of registered models.
+            List[str]: A list of registered model names.
         """
         try:
-            client = mlflow.MlflowClient()
+            client = MlflowClient()
             models = client.list_registered_models()
             return [model.name for model in models]
         except Exception as e:
             raise RuntimeError(f"Failed to list registered models: {e}")
 
-    def get_model_version_info(self, model_name: str, version: str) -> dict:
+    def get_model_version_info(self, model_name: str, version: str) -> Dict[str, Any]:
         """
         Get information about a specific model version.
 
         Args:
             model_name (str): Name of the model.
-            version (str): Version of the model.
+            version (str): Version identifier of the model.
 
         Returns:
-            dict: Information about the model version.
+            Dict[str, Any]: Details about the model version.
         """
         try:
-            client = mlflow.MlflowClient()
+            client = MlflowClient()
             version_info = client.get_model_version(model_name, version)
             return {
                 "name": version_info.name,
@@ -89,22 +89,20 @@ class ModelLoader:
         except Exception as e:
             raise RuntimeError(f"Failed to get model version info: {e}")
 
-    def transition_model_stage(
-        self, model_name: str, version: str, stage: str
-    ) -> None:
+    def transition_model_stage(self, model_name: str, version: str, stage: str) -> None:
         """
         Transition a model version to a specific stage (e.g., 'Staging', 'Production').
 
         Args:
             model_name (str): Name of the model.
-            version (str): Version of the model.
+            version (str): Version identifier of the model.
             stage (str): Target stage to transition to.
 
         Raises:
             RuntimeError: If the stage transition fails.
         """
         try:
-            client = mlflow.MlflowClient()
+            client = MlflowClient()
             client.transition_model_version_stage(
                 name=model_name, version=version, stage=stage
             )
