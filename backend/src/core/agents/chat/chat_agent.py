@@ -15,15 +15,10 @@ class ChatAgent():
     prompts for which AI provider you want to use, from a list then
     then prompts which model from the provider
     """
-    def create_agent(self):
-        provider = qy.select("Which provider",
-                chat_models_by_prov.keys()).ask()
-        name = qy.text("Name for agent?").ask()
+    def create_agent(self, name, provider, model):
         agent = api_Agent(name=name, provider=provider)
         print("")
-        self.model = qy.select("Which Model", 
-                        chat_models_by_prov[provider]
-                        ).ask() 
+        self.model = model
         agent.init_model(model=self.model)
         print("")
         self.memory = MemorySaver()
