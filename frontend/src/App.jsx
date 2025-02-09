@@ -17,7 +17,7 @@ function App() {
                     {/* <Route path='/' element={<> <HomePage/> </>}/> */}
                     <Route path='/' element={<>
                         <LandingNavbar/>
-                    
+ 
                      <LandingPage />  
                      
                      </>} />
