@@ -4,3 +4,4 @@ __pycache__
 *.rc
 debug*
 message*
+node_modules

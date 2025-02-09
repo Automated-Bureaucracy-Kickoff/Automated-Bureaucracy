@@ -9,6 +9,8 @@ export default function SettingsComponent() {
   const [model, setModel] = useState("Model 1");
   const [temperature, setTemperature] = useState(1.0);
   const [tools, setTools] = useState({ webSearch: false, notepad: false });
+  
+
   const dispatch = useDispatch()  
   const handleNumAgentsChange = (e) => {
     const value = Math.max(1, Number(e.target.value));
@@ -36,9 +38,10 @@ export default function SettingsComponent() {
   };
 
   return (
-    <>
-      <h2 className="text-3xl font-semibold mt-3 p-6 text-[var(--color-primary-text)]">Settings</h2>
-      <div className="space-y-3 p-6 -mt-9 mb-14 relative">
+    <div className="flex flex-col min-h-[100vh]   min-w-[100%] text-[var(--color-primary-text)] dark:text-[var(--color-primary-text)] rounded-[12px] mr-9 p-6   ">
+     
+      <h2 className="text-3xl font-semibold  p-6 pb-0 text-[var(--color-primary-text)]">Settings</h2>
+      <div className="space-y-3 p-6  relative">
         <div>
           <label className="block font-medium text-[var(--color-primary-text)]">No of agents</label>
           <input 
@@ -119,7 +122,7 @@ export default function SettingsComponent() {
           Save
         </button>
       </div>
-    </>
+    </div>
   );
   
 }

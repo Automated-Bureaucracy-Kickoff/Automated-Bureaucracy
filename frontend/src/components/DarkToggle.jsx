@@ -30,7 +30,7 @@ function DarkToggle() {
   return (
     <button
       onClick={toggleDarkMode}
-      className="p-1 bg-zinc-600 rounded"
+      className="p-1  rounded"
     >
       {isDarkMode ? '☀️' : '🌙'}
     </button>

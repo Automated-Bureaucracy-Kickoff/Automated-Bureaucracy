@@ -1,48 +1,64 @@
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AiIcon from "./AIicon";
-import EditIcon from '@mui/icons-material/Edit';
-import { createTitle } from "../redux/slices/chatbotState";
+import EditIcon from "@mui/icons-material/Edit";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { copyContent } from "../controller/api-copy";
+import ChangeTitle from "./ChangeTitle";
+
 const Response = () => {
   const messages = useSelector((state) => state.chatbot.messages);
-  const dispatch = useDispatch()
-  const title = useSelector((state)=>state.chatbot.title)
-   
+  const title = useSelector((state) => state.chatbot.title);
+  const [changetitle, setChangetitle] = useState(false);
+  const chatResponseRef = useRef(null);
+
+  useEffect(() => {
+    if (chatResponseRef.current) {
+      chatResponseRef.current.scrollTo({
+        top: chatResponseRef.current.scrollHeight+200,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
-    <div className="flex flex-col p-5 ">
-    
-      <div className="text-[var(--color-primary-text)] text-3xl font-bold p-4 mb-3 text-left z-20 fixed w-full left-[20vw] top-[10vh]">
-        {title || "Default Title"} 
+    <>
+      <div className="fixed z-20 m-4 text-[var(--color-primary-text)] text-3xl font-bold p-4 text-left w-full">
+        {title || "Default Title"}
         <EditIcon
-          className="relative -left-1 top-1"
-          color="var(--color-secondary-text)"
-          style={{ height: "20px" }}
-          onClick={() => { 
-            let text = prompt("Enter your title"); 
-            dispatch(createTitle(text)); 
-          }}
+          className="relative -left-1 top-1 cursor-pointer"
+          style={{ height: "20px", color: "var(--color-secondary-text)" }}
+          onClick={() => setChangetitle(true)}
         />
       </div>
-    
-      {messages.map((ele, index) => (
+      <div className="relative top-16 chatResponse overflow-y-auto flex flex-col w-[100vw] h-full p-5 min-h-[90vh] md:w-[80vw]">
         <div
-        className={`${index % 2 === 0 ? "self-end bg-[var(--color-message-right-bg)] dark:bg-[var(--color-message-right-bg)] " : "self-start bg-[var(--color-message-left-bg)] dark:bg-[var(--color-message-left-bg)]"}  
-                    mb-2 min-h-fit relative p-3 rounded-lg text-xl word-wrap break-words max-w-96 `}
-            
-        key={index + ele[0]}
-      >
-        {index % 2 !== 0 && <AiIcon />}
-        {ele[0]}
-        {index % 2 !== 0 ? <> <br /> <br /> </> : <><br /></>}
-        <br />
-        <h1 className="text-right text-[var(--color-secondary-text)]">{ele[1]}</h1>
+          className="flex flex-col flex-1 overflow-y-auto h-[100%]"
+          ref={chatResponseRef}
+        >
+          {messages.map((ele, index) => (
+            <div
+              key={index + ele[0]}
+              className={`w-2/3 mb-2 p-3 rounded-lg text-xl break-words ${
+                index % 2 === 0
+                  ? "self-end bg-[var(--color-message-left-bg)]"
+                  : "self-start bg-[var(--color-message-right-bg)]"
+              } message`}
+            >
+              {index % 2 !== 0 && <AiIcon />}
+              {ele[0]}
+              <br />
+              <br />
+              <h1 className="text-right text-[var(--color-secondary-text)]">
+                {ele[1]} <ContentCopyIcon onClick={() => copyContent(ele[0])} />
+              </h1>
+            </div>
+          ))}
+        </div>
+        {changetitle && <ChangeTitle setChangetitle={setChangetitle} />}
       </div>
-      
-      ))}
-    
-    </div>
+    </>
   );
-  
-  
 };
 
 export default Response;

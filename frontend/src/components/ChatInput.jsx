@@ -2,8 +2,8 @@ import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { aiResponse, setflag, userQuery } from "../redux/slices/chatbotState"
 import SendIcon from '@mui/icons-material/Send';
-import mimickApi from "../controller/api-Mimick";
 import FileUpload from "./FileUpload";
+import sendingDataToBackend from "../controller/api-backend";
 
 const Input = () => {
   const dispatch = useDispatch()
@@ -17,9 +17,9 @@ const Input = () => {
       chatbot.current.value = ""
       dispatch(userQuery({ message: [message, new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
       dispatch(aiResponse({ message: ["Thinking......", new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
-      try {
-        const data = await mimickApi({ message, settings })
-        dispatch(aiResponse({ message: JSON.parse(data).message, ...settings }))
+      try {    
+        const data = await sendingDataToBackend({message,settings})
+        dispatch(aiResponse({ message: data}))
       } catch (err) {
         dispatch(aiResponse({ message: JSON.parse(err).message }))
       }
@@ -28,19 +28,18 @@ const Input = () => {
   }
 
   return (
-    <div className="relative flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
-
+    <div className="relative left-5  md:relative -top-10 md:-left-16 flex flex-row items-center justify-center mx-auto w-3/4 h-full p-2 space-x-2">
         {/* Textarea for Chat */}
         <textarea
             onKeyDown={(event) => {
             if (event.key === "Enter" && !event.shiftKey) sendChat();
             }}
-            className="flex-1 rounded-lg p-2 border border-[var(--color-tertiary-bg)] dark:border-[var(--color-tertiary-bg)] outline-none transition duration-300 focus:border-blue-500 text-[var(--color-primary-text)] dark:text-[var(--color-primary-text-dark)] bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] resize-none box-border"
+            className="flex-1 rounded-lg p-2 border border-[var(--color-tertiary-bg)] dark:border-[var(--color-tertiary-bg)] outline-none transition duration-300 focus:border-blue-500 text-[var(--color-primary-text)] dark:text-[var(--color-primary-text-dark)] bg-[var(--color-secondary-bg)] dark:bg-[var(--color-secondary-bg)] resize-none box-border max-w-[70vw] min-h-[10vh] field-sizing-content scroll-auto max-h-[40vh] "
             placeholder="Type here..."
             ref={chatbot}
             type="text"
         />
-
+         {/* <div className="loading lv-circles sm lvl-5" data-label="Loading..." style={{display:"none"}}></div> */}
         {/* File Upload Button */}
         <FileUpload />
         <SendIcon onClick={sendChat}/>

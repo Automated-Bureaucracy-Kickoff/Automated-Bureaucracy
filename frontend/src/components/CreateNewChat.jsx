@@ -1,6 +1,3 @@
-import { Button } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { useDispatch, useSelector } from "react-redux";
 import { createHistory } from "../redux/slices/chatbotState";
 import { toggleSetting } from "../redux/slices/settings";
@@ -13,8 +10,8 @@ function CreateNewChat() {
         dispatch(appendHistory({ messages, files, title }))
     }
     return (
-        <div className="absolute top-[80px] flex justify-evenly gap-16 " >
-            <SettingsIcon className="m-2" onClick={() => dispatch(toggleSetting())} />
+        <div className="flex w-full h-16 justify-evenly relative " >
+           
             <button
                 onClick={clearChat}
                 className=" capitalize 
@@ -24,7 +21,10 @@ function CreateNewChat() {
                             bg-[var(--color-primary-bg)] 
                             dark:bg-[var(--color-primary-bg)] 
                             hover:bg-[var(--color-secondary-bg)] 
-                            dark:hover:bg-[var(--color-secondary-bg)]"
+                            dark:hover:bg-[var(--color-secondary-bg)]
+                            absolute
+                            top-[40px] right-1
+                            "
             >
                 Create New Chat
             </button>
