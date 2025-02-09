@@ -5,6 +5,8 @@ cd frontend
 npm i
 npm run dev
 ```
+what changes that needs to get done when backend is ready 
+frontend/src/controller/api-backend.js is the file 
 
 # AB
 Automated-Bureaucracy-Kickoff
