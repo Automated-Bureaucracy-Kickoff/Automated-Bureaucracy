@@ -38,7 +38,7 @@ function HistorySection() {
         ))}
       </div>
       <div className="h-10 w-[100%] relative top-[30px]">
-                <SettingsIcon className="absolute right-1 bottom-1" style={{ fontSize: "45px" }} onClick={() => dispatch(toggleSetting())} />
+                <SettingsIcon className="absolute right-1 bottom-1" style={{ fontSize: "40px" }} onClick={() => dispatch(toggleSetting())} />
             </div>
     </div>
   );
