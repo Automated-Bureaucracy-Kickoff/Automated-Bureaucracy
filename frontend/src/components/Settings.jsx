@@ -38,10 +38,10 @@ export default function SettingsComponent() {
   };
 
   return (
-    <div className="flex-col w-[100%] overflow-y-scroll">
+    <div className="flex flex-col min-h-[100vh]   min-w-[100%] text-[var(--color-primary-text)] dark:text-[var(--color-primary-text)] rounded-[12px] mr-9 p-6   ">
      
-      <h2 className="text-3xl font-semibold mt-3 p-6 text-[var(--color-primary-text)]">Settings</h2>
-      <div className="space-y-3 p-6 -mt-9 mb-14 relative">
+      <h2 className="text-3xl font-semibold  p-6 pb-0 text-[var(--color-primary-text)]">Settings</h2>
+      <div className="space-y-3 p-6  relative">
         <div>
           <label className="block font-medium text-[var(--color-primary-text)]">No of agents</label>
           <input 

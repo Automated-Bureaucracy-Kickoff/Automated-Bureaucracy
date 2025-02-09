@@ -8,12 +8,12 @@ import { useLocation } from "react-router-dom"
 
 const MainPage = () => {
     const settingToggle = useSelector((state) => state.toggle.settingsDisplay)
-    let location = useLocation()
+    let location = useLocation()   
     useEffect(()=>{
         // when this MainPage component shifts need to change below pathname 
-        if(location.pathname=="/")document.querySelector(".overflowremover").style.overflowY="hidden"
+        if(location.pathname=="/main")document.querySelector(".overflowremover").style.overflowY="hidden"
     },[])
-    return (
+    return (  
         <>
             <div className="flex w-full h-full bg-[var(--color-primary-bg)] dark:bg-[var(--color-primary-bg)]">
                 <div className = "hidden xs:hidden  md:flex h-full w-1/3">

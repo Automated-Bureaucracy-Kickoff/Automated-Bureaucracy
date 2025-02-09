@@ -2,13 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import CreateNewChat from "./CreateNewChat";
 import { accessHistory } from "../redux/slices/chatbotState";
 import { removeHistory } from "../redux/slices/previousChat";
+import SettingsIcon from '@mui/icons-material/Settings';
+import { toggleSetting } from "../redux/slices/settings";
 
 function HistorySection() {
   const history = useSelector((state) => state.history.history);
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col h-[83%] w-[80%] gap-2 ml-4">
+    <div className="flex flex-col max-h-[85vh]  w-[20vw]  gap-2 ml-4">
       {/* Header: fixed height (flex-none) */}
       <div className="flex-none">
         <CreateNewChat />
@@ -35,6 +37,9 @@ function HistorySection() {
 
         ))}
       </div>
+      <div className="h-10 w-[100%] relative top-[30px]">
+                <SettingsIcon className="absolute right-1 bottom-1" style={{ fontSize: "45px" }} onClick={() => dispatch(toggleSetting())} />
+            </div>
     </div>
   );
 }
