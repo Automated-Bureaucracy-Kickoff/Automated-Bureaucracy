@@ -1,14 +1,22 @@
 import uvicorn
-from fastapi import FastAPI
-from .core.agents.vars import *
-import json
+from fastapi import FastAPI, HTTPException
+from uuid import uuid4, UUID
+from pydantic import BaseModel
+from core.agents.vars import embed_models_by_prov,chat_models_by_prov
 
 app = FastAPI()
-agents={}
+agents = {}
 
+class Agent(BaseModel):
+    name: str
+    
 @app.get("/get_models_by_provider")
 async def get_models():
-    return json.dumps(models_by_prov)
+    return chat_models_by_prov
+
+@app.get("/embed_models_by_prov")
+async def get_models():
+    return embed_models_by_prov
 
 @app.post("/create_agent/", response_model=UUID)
 async def create_agent(agent: Agent):
@@ -27,7 +35,6 @@ async def get_agent(agent_id: UUID):
 async def interact_agent(agent_id: UUID, message: str):
     if agent_id in agents:
         agent = agents[agent_id]
-        # Implement your interaction logic here
         response = f"Agent {agent.name} received your message: {message}"
         return {"response": response}
     else:
