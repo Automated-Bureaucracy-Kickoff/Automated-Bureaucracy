@@ -1,3 +1,11 @@
+HOW TO RUN FRONTEND
+
+```javascript
+cd frontend
+npm i
+npm run dev
+```
+
 # AB
 Automated-Bureaucracy-Kickoff
 
