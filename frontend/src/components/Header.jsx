@@ -42,7 +42,7 @@ import { useNavigate } from "react-router-dom";
           Get Started
         </motion.button>
       </motion.div>
-      <ParticlesComponent id="particles" />
+     
     </header>
   );
 }
@@ -50,10 +50,9 @@ import { useNavigate } from "react-router-dom";
 export default function HeroSection() {
     return (
       <div className="relative w-full h-screen">
-        {/* Particles in the background */}
+      
         <ParticlesComponent id="particles" />
   
-        {/* Header in front of particles */}
         <div className="absolute inset-0 z-10">
           <Header />
         </div>
@@ -61,4 +60,3 @@ export default function HeroSection() {
     );
   }
 
-  

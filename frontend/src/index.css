@@ -46,6 +46,7 @@
   
   * {
     scrollbar-width: none;
+    scroll-behavior: smooth;
   }
   @theme{
     --breakpoint-xs: 1000px;

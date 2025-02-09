@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Close } from "@mui/icons-material";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import DarkToggle from "./DarkToggle";
 
 const Navbar = () => {
