@@ -7,6 +7,7 @@ npm run dev
 ## How To Run Backend
 ```
 cd backend
+pip install -r requirements.txt
 cd src
 python .\api_main.py
 ```
