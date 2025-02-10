@@ -17,7 +17,7 @@ FRONTEND_URL=str(os.getenv("FRONTEND_URL"))
 # it is a middleware to ensure that backend and frontend can communicate properly , if we not use this browser will not allow to share information b/w frontend and backend 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173",str(FRONTEND_URL)],
+    allow_origins=["http://localhost:5173",str(FRONTEND_URL),"https://automated-ochre.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"]
