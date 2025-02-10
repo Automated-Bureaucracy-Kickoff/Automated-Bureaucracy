@@ -1,17 +1,23 @@
 import uvicorn
+import os
 from fastapi import FastAPI, HTTPException
 from uuid import uuid4, UUID
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from core.agents.vars import embed_models_by_prov,chat_models_by_prov
 from multi_agent import simulate_consciousness
+from dotenv import load_dotenv
 app = FastAPI()
 agents = {}
+load_dotenv()
+
+PORT_NUMBER = os.getenv("PORT_NUMBER")
+FRONTEND_URL=os.getenv("FRONTEND_URL")
 
 # it is a middleware to ensure that backend and frontend can communicate properly , if we not use this browser will not allow to share information b/w frontend and backend 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173",str(FRONTEND_URL)],
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"]
@@ -63,4 +69,4 @@ async def interact_withMultiModalAgent(response:Multimodal_Agent_Parameter):
     
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=PORT_NUMBER)
