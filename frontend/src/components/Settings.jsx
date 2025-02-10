@@ -37,7 +37,7 @@ export default function SettingsComponent() {
   };
 
   return (
-    <div className="flex flex-col min-h-[100%]   min-w-[90%] text-[var(--color-primary-text)] dark:text-[var(--color-primary-text)] rounded-[12px] mr-9 p-2 overflow-y-scroll -mt-9   ">
+    <div className="flex flex-col max-h-[100%]   min-w-[90%] text-[var(--color-primary-text)] dark:text-[var(--color-primary-text)] rounded-[12px] mr-9 p-2 overflow-y-scroll -mt-9   ">
      
       <h2 className="text-3xl font-semibold  p-6 pb-0 text-[var(--color-primary-text)]">Settings</h2>
       <div className="space-y-3 p-6  relative">
@@ -52,7 +52,7 @@ export default function SettingsComponent() {
             
           />
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-2">
         {prompts.map((prompt, index) => (
           <div key={index}>
             <label className="block font-medium text-[var(--color-primary-text)]">System prompt for Agent {index + 1}</label>
@@ -120,7 +120,7 @@ export default function SettingsComponent() {
         </div>
         <button 
           onClick={handleSave} 
-          className="mt-6 text-2xl absolute right-0 bottom-1 text-[var(--color-button-text)] font-bold py-2 px-4 rounded bg-[var(--color-button-bg)] hover:bg-[var(--color-button-hover-bg)] animate-pulse"
+          className=" text-2xl absolute right-0 bottom-[40px] text-[var(--color-button-text)] font-bold py-2 px-4 rounded bg-[var(--color-button-bg)] hover:bg-[var(--color-button-hover-bg)] animate-pulse"
         >
           Save
         </button>
