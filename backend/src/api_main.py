@@ -11,8 +11,8 @@ app = FastAPI()
 agents = {}
 load_dotenv()
 
-PORT_NUMBER = os.getenv("PORT_NUMBER")
-FRONTEND_URL=os.getenv("FRONTEND_URL")
+PORT_NUMBER = int(os.getenv("PORT_NUMBER"))
+FRONTEND_URL=str(os.getenv("FRONTEND_URL"))
 
 # it is a middleware to ensure that backend and frontend can communicate properly , if we not use this browser will not allow to share information b/w frontend and backend 
 app.add_middleware(
