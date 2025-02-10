@@ -1,13 +1,11 @@
-HOW TO RUN FRONTEND
-
-```javascript
+## How To Run Frontend
+```
 cd frontend
 npm i
 npm run dev
 ```
-HOW TO RUN BACKEND 
-
-```javascript
+## How To Run Backend
+```
 cd backend
 cd src
 python .\api_main.py
