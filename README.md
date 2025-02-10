@@ -1,18 +1,59 @@
 ## How To Run Frontend
+
+If you don't have `npm` installed, first install Node.js, as `npm` comes bundled with it.  
+
+### Install Node.js (which includes npm):
+
+For Windows (via Chocolatey):  
+```sh
+choco install nodejs
 ```
+
+For macOS (via Homebrew):  
+```sh
+brew install node
+```
+
+For Linux (Debian/Ubuntu-based):  
+```sh
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+For Linux (Arch-based):  
+```sh
+sudo pacman -S nodejs npm
+```
+
+Once Node.js is installed, proceed with running the frontend:
+
+```sh
 cd frontend
 npm i
 npm run dev
 ```
+
+---
+
 ## How To Run Backend
+
+### For windows
+
+```sh
+cd backend
+pip install -r requirements.txt
+cd src
+python api_main.py  
+```
+### For mac
 ```
 cd backend
 pip install -r requirements.txt
 cd src
-python .\api_main.py
+python3 api_main.py
 ```
-
-
+<br> </br>
+---
 # AB
 Automated-Bureaucracy-Kickoff
 
