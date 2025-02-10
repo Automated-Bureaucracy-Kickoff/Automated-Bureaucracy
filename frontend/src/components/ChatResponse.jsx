@@ -5,13 +5,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { copyContent } from "../controller/api-copy";
 import ChangeTitle from "./ChangeTitle";
-
+import ReactMarkdown from "react-markdown";
 const Response = () => {
   const messages = useSelector((state) => state.chatbot.messages);
   const title = useSelector((state) => state.chatbot.title);
   const [changetitle, setChangetitle] = useState(false);
   const chatResponseRef = useRef(null);
-
+ 
   useEffect(() => {
     if (chatResponseRef.current) {
       chatResponseRef.current.scrollTo({
@@ -46,7 +46,8 @@ const Response = () => {
               } message`}
             >
               {index % 2 !== 0 && <AiIcon />}
-              {ele[0]}
+              {index%2!=0?<ReactMarkdown>{ele[0]}</ReactMarkdown>:ele[0]}
+              
               <br />
               <br />
               <h1 className="text-right text-[var(--color-secondary-text)]">

@@ -21,10 +21,10 @@ class Agent(BaseModel):
     name: str
 
 class Multimodal_Agent_Parameter(BaseModel):
-    system_prompt_analytica: str
-    system_prompt_creativa: str
-    system_prompt_pragmatica: str
-    user_prompt: str
+    system_prompt_analytica: str = "you are intelligent and be concise in 100 words"
+    system_prompt_creativa: str ="you are creative  and be concise in 100 words"
+    system_prompt_pragmatica: str="you are practical and and be concise in 100 words"
+    user_prompt: str=""
     
 @app.get("/get_models_by_provider")
 async def get_models():

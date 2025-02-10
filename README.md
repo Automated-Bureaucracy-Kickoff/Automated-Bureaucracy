@@ -5,8 +5,14 @@ cd frontend
 npm i
 npm run dev
 ```
-what changes that needs to get done when backend is ready 
-frontend/src/controller/api-backend.js is the file 
+HOW TO RUN BACKEND 
+
+```javascript
+cd backend
+cd src
+python .\api_main.py
+```
+
 
 # AB
 Automated-Bureaucracy-Kickoff

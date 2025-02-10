@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSetting } from "../redux/slices/settings";
 
 export default function SettingsComponent() {
-  const [numAgents, setNumAgents] = useState(1);
-  const [prompts, setPrompts] = useState([""]);
+  const [numAgents, setNumAgents] = useState(3);
+  const [prompts, setPrompts] = useState(["you are intelligent and be concise in 100 words","you are creative  and be concise in 100 words","you are practical and and be concise in 100 words"]);
   const [duration, setDuration] = useState("");
   const [model, setModel] = useState("Model 1");
   const [temperature, setTemperature] = useState(1.0);
   const [tools, setTools] = useState({ webSearch: false, notepad: false });
   
-
   const dispatch = useDispatch()  
   const handleNumAgentsChange = (e) => {
     const value = Math.max(1, Number(e.target.value));
-    setNumAgents(value);
-    setPrompts(new Array(value).fill(""));
+    // setNumAgents(3);
+    // setPrompts(new Array(3).fill(""));
   };
 
   const handlePromptChange = (index, value) => {
@@ -38,7 +37,7 @@ export default function SettingsComponent() {
   };
 
   return (
-    <div className="flex flex-col min-h-[100vh]   min-w-[100%] text-[var(--color-primary-text)] dark:text-[var(--color-primary-text)] rounded-[12px] mr-9 p-6   ">
+    <div className="flex flex-col min-h-[100%]   min-w-[90%] text-[var(--color-primary-text)] dark:text-[var(--color-primary-text)] rounded-[12px] mr-9 p-2 overflow-y-scroll -mt-9   ">
      
       <h2 className="text-3xl font-semibold  p-6 pb-0 text-[var(--color-primary-text)]">Settings</h2>
       <div className="space-y-3 p-6  relative">
@@ -49,19 +48,23 @@ export default function SettingsComponent() {
             value={numAgents} 
             onChange={handleNumAgentsChange} 
             className="w-full bg-[var(--color-secondary-bg)] p-2 rounded border border-[var(--color-secondary-border)]" 
-            min="1" 
+            max="3"
+            
           />
         </div>
+        <div className="grid grid-cols-2">
         {prompts.map((prompt, index) => (
           <div key={index}>
             <label className="block font-medium text-[var(--color-primary-text)]">System prompt for Agent {index + 1}</label>
             <textarea 
-              value={prompt} 
+              defaultValue={prompt} 
               onChange={(e) => handlePromptChange(index, e.target.value)} 
               className="w-full bg-[var(--color-secondary-bg)] p-2 rounded border border-[var(--color-secondary-border)]"
             />
           </div>
+         
         ))}
+         </div>
         <div>
           <label className="block font-medium text-[var(--color-primary-text)]">Durations / Cycle</label>
           <input 
