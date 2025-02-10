@@ -10,3 +10,4 @@ langchain_community
 duckduckgo-search
 jq
 langchain-core
+tavily-python

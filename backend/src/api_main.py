@@ -4,7 +4,7 @@ from uuid import uuid4, UUID
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from core.agents.vars import embed_models_by_prov,chat_models_by_prov
-
+from multi_agent import simulate_consciousness
 app = FastAPI()
 agents = {}
 
@@ -19,6 +19,12 @@ app.add_middleware(
 
 class Agent(BaseModel):
     name: str
+
+class Multimodal_Agent_Parameter(BaseModel):
+    system_prompt_analytica: str
+    system_prompt_creativa: str
+    system_prompt_pragmatica: str
+    user_prompt: str
     
 @app.get("/get_models_by_provider")
 async def get_models():
@@ -49,6 +55,12 @@ async def interact_agent(agent_id: UUID, message: str):
         return {"response": response}
     else:
         raise HTTPException(status_code=404, detail="Agent not found")
+
+@app.post("/multiAgent")
+async def interact_withMultiModalAgent(response:Multimodal_Agent_Parameter):
+    data =  simulate_consciousness(response)
+    return {"message":data} 
+    
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
