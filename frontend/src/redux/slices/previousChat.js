@@ -1,28 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  history:[],
+  history: JSON.parse(localStorage.getItem('chatHistory')) || []
 }
 
-export const chatHistorySlice = createSlice({
-  name: 'chatHistory',
+const historySlice = createSlice({
+  name: 'history',
   initialState,
   reducers: {
-    appendHistory:(state,action)=>{
-        state.history.push(action.payload)
+    appendHistory: (state, action) => {
+      // Allow empty chats to be saved as configurations
+      const newHistory = [action.payload, ...state.history];
+      state.history = newHistory;
+      localStorage.setItem('chatHistory', JSON.stringify(newHistory));
     },
-    removeHistory:(state,action)=>{
-      state.history=state.history.filter((ele)=>JSON.stringify(ele)!=JSON.stringify(action.payload))
-      
+    removeHistory: (state, action) => {
+      const newHistory = state.history.filter(
+        (chat) => chat.title !== action.payload.title
+      );
+      state.history = newHistory;
+      localStorage.setItem('chatHistory', JSON.stringify(newHistory));
+    },
+    clearAllHistory: (state) => {
+      state.history = [];
+      localStorage.removeItem('chatHistory');
     }
-    // getHistory: (state, action) => {
-    //   state.history = state.history.filter(
-    //     (ele) => ele.title === action.payload.title && ele.key === action.payload.key
-    //   );
-    // }
   },
 })
 
-export const { appendHistory,removeHistory } = chatHistorySlice.actions
-
-export default chatHistorySlice.reducer
+export const { appendHistory, removeHistory, clearAllHistory } = historySlice.actions
+export default historySlice.reducer

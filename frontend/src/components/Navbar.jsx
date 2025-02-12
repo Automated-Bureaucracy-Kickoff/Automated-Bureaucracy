@@ -36,4 +36,36 @@ const Navbar = () => {
   );
 };
 
+function MainNavBar() {
+  return (
+    <nav className="absolute z-10 top-14 right-0 mx-auto w-1/2 px-4 rounded-[12px]">
+      <div className="bg-[#192333]/80 backdrop-blur-sm rounded-lg shadow-lg px-6 py-4">
+        <div className="flex justify-center">
+          <div className="flex items-center space-x-8">
+            <Link 
+              to="/" 
+              className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
+            >
+              Home
+            </Link>
+            <Link 
+              to="/main" 
+              className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
+            >
+              Multi-Agent Chat
+            </Link>
+            <Link 
+              to="/aboutus" 
+              className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
+            >
+              About Us
+            </Link>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
 export default Navbar;
+export { MainNavBar };

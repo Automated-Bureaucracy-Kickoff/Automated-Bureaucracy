@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   messages:[],
   files:[],
-  title:"Default Title",
+  title:"New Chat",
   flag:true 
 }
 
@@ -46,10 +46,18 @@ export const chatBotSlice = createSlice({
       state.messages=messages
       state.files=files
       state.title=title
+    },
+    updateTitle: (state, action) => {
+      state.title = action.payload.title;
+    },
+    clearChat: (state) => {
+      state.messages = [];
+      state.title = "New Chat";
+      state.files = [];
     }
   },
 })
 
-export const { userQuery, aiResponse,setflag,appendFiles,createHistory,createTitle,accessHistory } = chatBotSlice.actions
+export const { userQuery, aiResponse,setflag,appendFiles,createHistory,createTitle,accessHistory,updateTitle,clearChat,setInitialConfig } = chatBotSlice.actions
 
 export default chatBotSlice.reducer
