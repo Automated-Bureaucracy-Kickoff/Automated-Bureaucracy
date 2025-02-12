@@ -4,8 +4,16 @@ import { Brain, Bot, Workflow, Building2, Users, BarChart as ChartBar } from 'lu
 import FadeInWhenVisible from '../components/FadeIn';
 import HeroSection from '../components/Header';
 import ContactSection from '../components/Contact';
+import { useNavigate } from 'react-router-dom';
+import ParticlesComponent from "../components/Particle";
 
 function LandingPage() {
+  const navigate = useNavigate();
+
+  const handleLearnMore = () => {
+    console.log("Learn More clicked - navigating to /aboutus"); // Debug log
+    navigate('/aboutus');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
@@ -76,13 +84,21 @@ function LandingPage() {
                 insights to NGOs, public, and private sector partners through certified reviews, 
                 custom-built workflows, and fully maintained AI-driven systems.
               </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors"
-              >
-                Learn More
-              </motion.button>
+              <div className="relative inline-block">
+                <motion.button
+                  onClick={handleLearnMore}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ 
+                    position: 'relative',
+                    zIndex: 50,
+                    cursor: 'pointer'
+                  }}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all shadow-lg pointer-events-auto"
+                >
+                  Learn More
+                </motion.button>
+              </div>
             </div>
           </FadeInWhenVisible>
         </div>

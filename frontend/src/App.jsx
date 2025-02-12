@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage.jsx'
 import LandingPage from './pages/HomePage.jsx'
 import LandingNavbar from './components/landingPageNavbar.jsx'
 import { useEffect } from 'react'
+import AboutUsPage from './pages/AboutUsPage'
 
 function App() {
 
@@ -31,6 +32,10 @@ function App() {
                         </div>
 
                     } />
+                    <Route path='/aboutus' element={<>
+                        <LandingNavbar />
+                        <AboutUsPage />
+                    </>} />
                 </Routes>
 
             </Provider>
