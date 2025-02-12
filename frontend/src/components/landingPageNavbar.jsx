@@ -7,23 +7,23 @@ function LandingNavbar() {
         <div className="flex justify-center">
           {/* Desktop menu */}
           <div className="flex items-center space-x-8">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
             >
               Home
             </Link>
-            <Link 
-              to="/main" 
-              className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
-            >
-              Get Started
-            </Link>
-            <Link 
-              to="/aboutus" 
+            <Link
+              to="/aboutus"
               className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
             >
               About Us
+            </Link>
+            <Link
+              to="/main"
+              className="text-[#E2E8F0] hover:text-[#4169E1] transition-colors duration-200"
+            >
+              Get Started
             </Link>
           </div>
         </div>

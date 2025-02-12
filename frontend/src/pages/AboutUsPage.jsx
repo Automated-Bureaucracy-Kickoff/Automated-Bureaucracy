@@ -36,9 +36,10 @@ const teamMembers = [
   {
     name: "Lakshay Jain",
     title: "Chief Frontend Engineer",
-    bio: "Frontend developer experienced in Node.js, Express.js, HTML, CSS, vercel, vite, and react to build engaging user experiences through frontend implementation.",
+    bio: "Frontend developer experienced in Node.js, Express.js, React js and Vite to build engaging user experiences through frontend implementation.",
     image: "/profilepic_lakshayjain.png",
     linkedin: "https://www.linkedin.com/in/lakshay-jain-1307532a1/",
+    email:"lakshaybusiness.12@gmail.com"
   },
   {
     name: "Ananya Pandey",
@@ -67,7 +68,7 @@ export default function AboutUsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {/* First Video */}
           <div className="flex flex-col">
-            <h2 className="text-2xl font-bold mb-4 text-center text-blue-400">
+            <h2 className="text-xl font-bold mb-4 text-center text-blue-400">
               Founder Introduction
             </h2>
             <div className="aspect-video">
@@ -82,7 +83,7 @@ export default function AboutUsPage() {
 
           {/* Second Video */}
           <div className="flex flex-col">
-            <h2 className="text-2xl font-bold mb-4 text-center text-blue-400">
+            <h2 className="text-xl font-bold mb-4 text-center text-blue-400">
               Multi-Agent Model Demo
             </h2>
             <div className="aspect-video">
@@ -97,7 +98,7 @@ export default function AboutUsPage() {
 
           {/* Third Video */}
           <div className="flex flex-col">
-            <h2 className="text-2xl font-bold mb-4 text-center text-blue-400">
+            <h2 className="text-xl font-bold mb-4 text-center text-blue-400">
               Simulation Output Example
             </h2>
             <div className="aspect-video">

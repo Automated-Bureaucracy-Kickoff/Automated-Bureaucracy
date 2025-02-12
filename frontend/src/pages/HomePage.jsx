@@ -5,13 +5,11 @@ import FadeInWhenVisible from '../components/FadeIn';
 import HeroSection from '../components/Header';
 import ContactSection from '../components/Contact';
 import { useNavigate } from 'react-router-dom';
-import ParticlesComponent from "../components/Particle";
 
 function LandingPage() {
   const navigate = useNavigate();
 
   const handleLearnMore = () => {
-    console.log("Learn More clicked - navigating to /aboutus"); // Debug log
     navigate('/aboutus');
   };
 
@@ -20,7 +18,7 @@ function LandingPage() {
       {/* Hero Section */}
       <HeroSection/>
 
-      {/* Features Section */}
+      
       <section id='services' className="py-20 bg-gray-800/50">
         <div className="container mx-auto px-4">
           <FadeInWhenVisible>
@@ -72,8 +70,8 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section  className="py-20">
+      {/* Vision*/}
+      <section   className="py-20 ">
         <div id='about' className="container mx-auto px-4">
           <FadeInWhenVisible>
             <div className="max-w-4xl mx-auto text-center">

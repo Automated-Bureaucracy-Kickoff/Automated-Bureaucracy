@@ -6,6 +6,14 @@
           {
             "key": "Content-Security-Policy",
             "value": "frame-ancestors https://automatedbureaucracy.com;"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://automatedbureaucracy.com"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, OPTIONS"
           }
         ]
       }
@@ -17,4 +25,3 @@
       }
     ]
   }
-  
