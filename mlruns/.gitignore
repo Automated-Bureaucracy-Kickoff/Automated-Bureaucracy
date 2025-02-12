@@ -1,0 +1,5 @@
+# Ignore all files in the mlruns directory
+mlruns/*
+
+# Except .gitignore file
+!mlruns/.gitignore
