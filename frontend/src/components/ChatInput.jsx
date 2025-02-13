@@ -16,7 +16,7 @@ const Input = () => {
       dispatch(setflag({ flag: false }))
       chatbot.current.value = ""
       dispatch(userQuery({ message: [message, new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
-      dispatch(aiResponse({ message: ["Thinking......", new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
+      dispatch(aiResponse({ message: ["Thinking...... It may take 20-30 second to respond back", new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
       try {
         const { Analytica, Creativa, Pragmatica, Final_Analytica } = await sendingDataToBackend({ message, settings })
         const formattedMessage = `
