@@ -4,9 +4,7 @@ const initialState = {
     settingsDisplay:false,
     setting:{
       "numAgents": 1,
-      "prompts": [
-          "daslkadjslk"
-      ],
+      "prompts":["you are intelligent and be concise in 100 words","you are creative  and be concise in 100 words","you are practical and and be concise in 100 words"],
       "duration": "2",
       "model": "Model 1",
       "temperature": 1,
