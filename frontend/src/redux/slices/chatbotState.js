@@ -17,7 +17,7 @@ export const chatBotSlice = createSlice({
       
     },
     aiResponse: (state,action) => {
-        if(state.messages[state.messages.length-1][0]== "Thinking...... It may take 20-30 second to respond back"){
+        if(state.messages[state.messages.length-1][0]== "Thinking...... It may take more than 20-30 second to respond back"){
           state.messages[state.messages.length-1][0]=action.payload.message
           return
         }
