@@ -35,8 +35,8 @@ const teamMembers = [
   },
   {
     name: "Lakshay Jain",
-    title: "Chief Frontend Engineer",
-    bio: "Frontend developer experienced in Node.js, Express.js, React js and Vite to build engaging user experiences through frontend implementation.",
+    title: "Chief FullStack Engineer",
+    bio: "Experienced Full Stack developer with a strong proficiency in Node.js, Express.js, React.js, MongoDB, and TypeScript. Skilled in designing and delivering end-to-end solutions that combine robust frontend and backend capabilities.",
     image: "/profilepic_lakshayjain.png",
     linkedin: "https://www.linkedin.com/in/lakshay-jain-1307532a1/",
     email:"lakshaybusiness.12@gmail.com"
