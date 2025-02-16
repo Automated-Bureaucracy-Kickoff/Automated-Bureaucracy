@@ -9,6 +9,7 @@ const Input = () => {
   const dispatch = useDispatch()
   let flag = useSelector((state) => state.chatbot.flag)
   let settings = useSelector((state) => state.toggle.setting)
+  let history = useSelector((state)=>state.chatbot.messages)
   const chatbot = useRef()
   const sendChat = async () => {
     if (flag) {
@@ -18,7 +19,7 @@ const Input = () => {
       dispatch(userQuery({ message: [message, new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
       dispatch(aiResponse({ message: ["Thinking...... It may take more than 20-30 second to respond back", new Date().toLocaleString([], { hour: '2-digit', minute: '2-digit' })] }))
       try {
-        const { Analytica, Creativa, Pragmatica, Final_Analytica } = await sendingDataToBackend({ message, settings })
+        const { Analytica, Creativa, Pragmatica, Final_Analytica } = await sendingDataToBackend({ message, settings,history })
         const formattedMessage = `
 ### 🤖 **Analytica's Response**
 > ${Analytica}
