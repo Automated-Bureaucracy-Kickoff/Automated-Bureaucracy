@@ -2,15 +2,6 @@
 
 We built this MVP to submit to Y Combinator for the Spring season. Although we were not selected, we are making the repository public.
 
-## AB – Automated Bureaucracy Kickoff
-
-### Contributors
-* BlakeDeHaas
-* Lakshay-Jain-1
-* Noah-Vilas
-* AnanyaPandey1504
-* SathishKumar9866
-
 ---
 
 ## Strategic Business Plan (v1.0) – AutomatedBureaucracy.com
